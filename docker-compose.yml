@@ -17,9 +17,9 @@ services:
     ports:
       - 3000:3000
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      HOSTNAME: db
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_HOSTNAME: db
       JWT_SECRET: secretJWT
   db:
     container_name: projeto_xp_db

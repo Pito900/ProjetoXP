@@ -1,0 +1,2 @@
+CREATE SCHEMA IF NOT EXISTS `projetoxp` DEFAULT CHARACTER SET utf8;
+USE `projetoxp`;

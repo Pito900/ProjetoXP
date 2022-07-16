@@ -1,11 +1,12 @@
 require('dotenv').config();
 
-modelue.exports = {
+module.exports = {
   "development": {
     "username": process.env.DB_USER || "root",
     "password": process.env.DB_PASSWORD || null,
-    "database": process.env.DB_NAME || "ProjetoXp",
-    "host": process.env.DB_HOSTNAME || "127.0.0.1",
+    "database": process.env.DB_NAME || "projetoxp",
+    "host": process.env.DB_HOSTNAME || "localhost",
+    "port": process.env.MYSQL_PORT || '3306',
     "dialect": "mysql"
   },
   "test": {

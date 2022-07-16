@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node service.js",
-    "dev": "nodemon service.js"
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "repository": {
     "type": "git",

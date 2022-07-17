@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "start": "node .",
     "dev": "nodemon ."
@@ -28,6 +29,11 @@
     "sequelize": "^6.21.3"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^14.2.4",
+    "eslint-config-trybe-backend": "^1.0.3",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-sonarjs": "^0.13.0",
     "nodemon": "^2.0.19",
     "sequelize-cli": "^6.4.1"
   }

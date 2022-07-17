@@ -8,6 +8,14 @@ const ClienteSchema = (sequelize, DataTypes) => {
     saldo: DataTypes.DECIMAL
   }, { timestamps: false });
 
+  ClienteTable.associate = (models) => {
+    ClienteTable.hasMany(models.Deposito,
+      { foreignKey: 'codCliente', as: 'depositos'})
+    ClienteTable.hasMany(models.Saque,
+      { foreignKey: 'codCliente', as: 'saques'}) 
+  }
+
+
   return ClienteTable;
 };
 

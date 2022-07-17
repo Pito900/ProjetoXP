@@ -12,6 +12,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL
       },
+      codCliente: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Clientes',
+          key: 'codCliente'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

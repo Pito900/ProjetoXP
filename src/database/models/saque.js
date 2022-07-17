@@ -5,6 +5,11 @@ const SaqueSchema = (sequelize, DataTypes) => {
     createdAt: DataTypes.DATE
   }, { timestamps: false });
 
+  SaqueTable.associate = (models) => {
+    SaqueTable.belongsTo(models.Cliente, //definindo a associação hasMany da tabela users com a blogpost
+      { foreignKey: 'codCliente', as: 'cliente'}) 
+  }
+
   return SaqueTable;
 };
 

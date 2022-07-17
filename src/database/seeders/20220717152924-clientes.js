@@ -2,7 +2,7 @@ module.exports = {
   up: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkInsert('Clientes',
       [{
-        id: 1,
+        codCliente: 1,
         name: 'Maria',
         email: 'maria@gmail.com',
         password: '123456',
@@ -10,7 +10,7 @@ module.exports = {
         saldo: 1000000,
       },
       {
-        id: 2,
+        codCliente: 2,
         name: 'Francisco',
         email: 'francisco@gmail.com',
         password: '123456',

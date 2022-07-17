@@ -1,12 +1,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('ClienteEAtivos', {
-      idAtivo: {
+      codAtivo: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Ativos',
-          key: 'id',
+          key: 'codAtivo',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'Clientes',
-          key: 'id',
+          key: 'codCliente',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',

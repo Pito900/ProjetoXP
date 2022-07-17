@@ -1,6 +1,6 @@
 const ClienteSchema = (sequelize, DataTypes) => {
   const ClienteTable = sequelize.define('Cliente', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    codCliente: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,

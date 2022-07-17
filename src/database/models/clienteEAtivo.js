@@ -1,13 +1,13 @@
 const ClienteEAtivoSchema = (sequelize, DataTypes) => {
     const ClienteEAtivoTabela = sequelize.define('ClienteEativo', {
-      idAtivo: DataTypes.INTEGER,
+      codAtivo: DataTypes.INTEGER,
       codCliente: DataTypes.INTEGER,
     }, { timestamps: false, TableName: 'ClienteEativo' });
 
     ClienteEAtivoTabela.associate = (models) => { // desta forma fazemos a associação de N:N
         models.Ativo.belongsToMany(models.Cliente, { 
         as: 'cliente',
-        foreignKey: 'idAtivo',
+        foreignKey: 'codAtivo',
         through: ClienteEAtivoTabela,
         otherKey: 'codCliente',
         }) 

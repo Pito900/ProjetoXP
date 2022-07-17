@@ -24,6 +24,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       saldo: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       }
     });

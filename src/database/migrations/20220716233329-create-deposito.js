@@ -1,33 +1,32 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Depositos', {
-      codDeposito: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       valor: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL,
       },
       codCliente: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Clientes',
-          key: 'codCliente'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('Depositos');
-  }
+  },
 };

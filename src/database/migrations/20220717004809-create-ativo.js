@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Ativos', {
@@ -6,24 +5,24 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       codAtivo: {
         unique: true,
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       qtdDisponivel: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       valor: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('Ativos');
-  }
+  },
 };

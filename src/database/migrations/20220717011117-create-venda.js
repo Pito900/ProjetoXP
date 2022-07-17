@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Vendas', {
@@ -6,31 +5,39 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      codAtivo: {
-        type: Sequelize.STRING
+      idAtivo: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Ativos',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
-      qtdComprada: {
-        type: Sequelize.INTEGER
-      },
-      valor: {
-        type: Sequelize.DECIMAL
+      qtdVendida: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
       codCliente: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Clientes',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('Vendas');
-  }
+  },
 };

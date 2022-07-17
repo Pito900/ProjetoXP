@@ -1,36 +1,43 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Compras', {
-      idCompra: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      codAtivo: {
+      idAtivo: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Ativos',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       qtdComprada: {
         allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      valor: {
-        allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.INTEGER,
       },
       codCliente: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Clientes',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('Compras');
-  }
+  },
 };

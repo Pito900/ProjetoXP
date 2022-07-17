@@ -1,15 +1,15 @@
 const DepositoSchema = (sequelize, DataTypes) => {
-  const DepositoTable = sequelize.define("Deposito",{
-    codDeposito: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  const DepositoTable = sequelize.define('Deposito', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     valor: DataTypes.DECIMAL,
     codCliente: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE
+    createdAt: DataTypes.DATE,
   }, { timestamps: false });
 
   DepositoTable.associate = (models) => {
     DepositoTable.belongsTo(models.Cliente,
-      { foreignKey: 'codCliente', as: 'cliente'}) 
-  }
+      { foreignKey: 'codCliente', as: 'cliente' }); 
+  };
 
   return DepositoTable;
 };

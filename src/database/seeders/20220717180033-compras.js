@@ -1,34 +1,38 @@
 module.exports = {
   up: async (queryInterface, _Sequelize) => {
-    await queryInterface.bulkInsert('Saques',
+    await queryInterface.bulkInsert('Compras',
       [{
         id: 1,
-        valor: 1000,
+        idAtivo: 1,
+        qtdComprada: 12,
         codCliente: 2,
-        createdAt: new Date('2022-06-01T19:58:00.000Z'),
+        createdAt: new Date('2022-04-01T11:25:00.000Z'),
       },
       {
         id: 2,
-        valor: 2000,
+        idAtivo: 2,
+        qtdComprada: 12,
         codCliente: 1,
-        createdAt: new Date('2022-01-01T19:51:00.000Z'),
+        createdAt: new Date('2022-04-01T11:25:00.000Z'),
       },
       {
         id: 3,
-        valor: 3000,
-        codCliente: 2,
+        idAtivo: 3,
+        qtdComprada: 14,
+        codCliente: 1,
         createdAt: new Date('2022-05-01T19:18:00.000Z'),
       },
       {
         id: 4,
-        valor: 50000,
-        codCliente: 1,
+        idAtivo: 4,
+        qtdComprada: 20,
+        codCliente: 2,
         createdAt: new Date('2022-03-01T19:02:00.000Z'),
       },
       ], { timestamps: false });
   },
 
   down: async (queryInterface, _Sequelize) => {
-    await queryInterface.bulkDelete('Saques', null, {});
+    await queryInterface.bulkDelete('Compras', null, {});
   },
 };

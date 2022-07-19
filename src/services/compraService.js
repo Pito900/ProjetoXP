@@ -1,5 +1,6 @@
 const { Compra } = require('../database/models');
 const { GettingQtdByCodAtivo, updateQtdDisponivel } = require('./ativoService');
+const { updatingSaldoComprar } = require('./clienteService');
 
 const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
     const qtdDisponivel = await GettingQtdByCodAtivo(codAtivo);
@@ -12,6 +13,7 @@ const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
         qtdComprada: qtdAtivo,
         createdAt: new Date(),
     });
+    await updatingSaldoComprar(codCliente, codAtivo, qtdAtivo);
     await updateQtdDisponivel(qtdAtivo, codAtivo);
     return newPurchase;
 };

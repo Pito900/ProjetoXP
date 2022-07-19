@@ -2,7 +2,7 @@ const CompraSchema = (sequelize, DataTypes) => {
   const CompraTable = sequelize.define('Compra', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     codAtivo: DataTypes.INTEGER,
-    qtdComprada: DataTypes.INTEGER,
+    qtdAtivo: DataTypes.INTEGER,
     codCliente: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
   }, { timestamps: false });

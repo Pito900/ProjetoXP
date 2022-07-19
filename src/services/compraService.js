@@ -1,6 +1,11 @@
 const { Compra } = require('../database/models');
 const { GettingQtdByCodAtivo, updateQtdDisponivel } = require('./ativoService');
-const { updatingSaldoComprar } = require('./clienteService');
+const { updatingSaldo } = require('./clienteService');
+
+const getAllPurchase = async () => {
+    const allPurchase = await Compra.findAll();
+    return allPurchase;
+};
 
 const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
     const qtdDisponivel = await GettingQtdByCodAtivo(codAtivo);
@@ -8,16 +13,17 @@ const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
         return res.status(422).json({ message: 'A "qtdAtivo" é superior a qdtDisponível.' });
     }
     const newPurchase = await Compra.create({ 
-        codCliente, 
         codAtivo, 
-        qtdComprada: qtdAtivo,
+        qtdAtivo,
+        codCliente, 
         createdAt: new Date(),
     });
-    await updatingSaldoComprar(codCliente, codAtivo, qtdAtivo);
-    await updateQtdDisponivel(qtdAtivo, codAtivo);
+    await updatingSaldo(codCliente, codAtivo, qtdAtivo, 'compra');
+    await updateQtdDisponivel(qtdAtivo, codAtivo, 'compra');
     return newPurchase;
 };
 
 module.exports = {
+    getAllPurchase,
     createPurchase,
 };

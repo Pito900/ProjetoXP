@@ -17,7 +17,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      qtdComprada: {
+      qtdAtivo: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },

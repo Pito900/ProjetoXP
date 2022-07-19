@@ -11,7 +11,7 @@ const comprasDTO = Joi.object({
 
 });
 
-const bodyCompraValidation = (req, res, next) => {
+const bodyCompraEVendaValidation = (req, res, next) => {
   const { error } = comprasDTO.validate(req.body);
   if (error) {
     const [code, message] = error.details[0].message.split('-');
@@ -21,5 +21,5 @@ const bodyCompraValidation = (req, res, next) => {
 };
 
 module.exports = {
-    bodyCompraValidation,
+    bodyCompraEVendaValidation,
 };

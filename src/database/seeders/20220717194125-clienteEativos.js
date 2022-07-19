@@ -10,11 +10,11 @@ module.exports = {
         codCliente: 1,
       },
       {
-        codAtivo: 3,
+        codAtivo: 4,
         codCliente: 2,
       },
       {
-        codAtivo: 3,
+        codAtivo: 4,
         codCliente: 1,
       },
       ], { timestamps: false });

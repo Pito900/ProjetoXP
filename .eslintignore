@@ -3,3 +3,4 @@
 **/migrations/
 **/seeders/
 **/models/
+**/services/clienteService.js

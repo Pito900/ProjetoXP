@@ -4,10 +4,11 @@ const { Compra, Cliente } = require('../database/models');
 const getAllPurchase = async () => {
     const allPurchase = await Compra.findAll();
     const resposta = allPurchase.map(async (objeto) => {
-        const { valor } = await gettingAtivoByCodAtivo(objeto.codAtivo);
+        const { valor, ticker } = await gettingAtivoByCodAtivo(objeto.codAtivo);
         return {
             id: objeto.id,
             codAtivo: objeto.codAtivo,
+            ticker,
             qtdAtivo: objeto.qtdAtivo,
             valor: Number(valor),
             codCliente: objeto.codCliente,

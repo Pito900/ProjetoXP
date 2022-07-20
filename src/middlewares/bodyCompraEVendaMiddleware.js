@@ -28,7 +28,7 @@ const clienteValidation = async (req, res, next) => { // validamos aqui se que e
     const clienterData = allClients.filter((user) => user.email === email)[0];
     if (clienterData.codCliente !== codCliente) {
         return res.status(401).json({ 
-            message: 'Você não é o usuário autorizado para realizar esta operação.',
+            message: 'O Cliente logado não tem autorização para realizar esta operação.',
         });
     }
      next();

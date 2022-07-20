@@ -6,6 +6,7 @@ const arraydeAtivos = async (array1, array2) => {
     for (let i = 0; i < array1.length; i++) {
         const ObjAtivo = {};
         ObjAtivo.codAtivo = array1[i].codAtivo;
+        ObjAtivo.ticker = array1[i].ticker;
         ObjAtivo.qtdAtivo = array1[i].qtdAtivo;
         ObjAtivo.valor = array1[i].valor;
         for (let k = 0; k < array2.length; k++) {
@@ -26,6 +27,7 @@ const AgrupandoAtivos = (array) => {
         const ObjAtivo = {};
         if (!result.find((i) => i.codAtivo === ativo.codAtivo)) {
             ObjAtivo.codAtivo = ativo.codAtivo;
+            ObjAtivo.ticker = ativo.ticker;
             ObjAtivo.qtdAtivo = ativo.qtdAtivo;
             ObjAtivo.valor = ativo.valor;
            return result.push(ObjAtivo);
@@ -45,6 +47,7 @@ const updateAtivosClienteVenda = async (codCliente) => {
     .filter((ativo) => ativo.codCliente === codCliente)
     .map((ativo) => ({
         codAtivo: ativo.codAtivo,
+        ticker: ativo.ticker,
         qtdAtivo: ativo.qtdAtivo,
         valor: ativo.valor,
     }));
@@ -52,12 +55,13 @@ const updateAtivosClienteVenda = async (codCliente) => {
     return result;
   };
 
-  const getAllAtivoOfThecodClient = async (codCliente) => {
+const getAllAtivoOfThecodClient = async (codCliente) => {
     const allPurchase = await getAllPurchase();
     const allcodClienteAtivos = allPurchase
       .filter((ativo) => ativo.codCliente === codCliente)
       .map((ativo) => ({
           codAtivo: ativo.codAtivo,
+          ticker: ativo.ticker,
           qtdAtivo: ativo.qtdAtivo,
           valor: ativo.valor,
       }));
@@ -65,16 +69,13 @@ const updateAtivosClienteVenda = async (codCliente) => {
     return result;
   };
 
-const clientNoPassword = async (object) => { // retirei o password para trabalharmos sem essa informação sensível.
+const npPasswordPathClienteAtivos = async (object) => { // retirei o password para trabalharmos sem essa informação sensível.
     const codClienteAtivos = await getAllAtivoOfThecodClient(object.codCliente);
     const clientVendas = await updateAtivosClienteVenda(object.codCliente);
     const arrayAtivos = await arraydeAtivos(codClienteAtivos, clientVendas);
     const newObj = {
         codCliente: object.codCliente,
-        name: object.name,
         email: object.email,
-        image: object.image,
-        saldo: object.saldo,
         ativos: arrayAtivos,
     };
     return newObj;
@@ -82,14 +83,29 @@ const clientNoPassword = async (object) => { // retirei o password para trabalha
 
 const getAllclients = async () => {
     const clientsAllData = await Cliente.findAll();
-    const clientWithoutPassword = clientsAllData.map(async (item) => clientNoPassword(item));
+    const clientWithoutPassword = clientsAllData
+        .map(async (item) => npPasswordPathClienteAtivos(item));
     const result = await Promise.all(clientWithoutPassword);
     return result;
 };
 
+const listarTodasOsAtivos = async () => {
+    const CarteiraDosClientes = await getAllclients();
+    const allAtivos = await Ativo.findAll();
+    const carteiras = CarteiraDosClientes.map((carteira) => ({
+        codCliente: carteira.codCliente,
+        ativos: carteira.ativos,
+    }));
+    const ListaAtivos = {
+        Corretora: allAtivos,
+        Carteiras: carteiras,
+    };
+    return ListaAtivos;
+};
+
 const getClienteByCod = async (codCliente) => {
     const cliente = await Cliente.findByPk(codCliente);
-    const result = await clientNoPassword(cliente);
+    const result = await npPasswordPathClienteAtivos(cliente);
     return result;
 };
 
@@ -112,16 +128,27 @@ const updateSaldoDepositoOuSaque = async (codCliente, valor, deposito) => {
     const { saldo } = await Cliente.findByPk(codCliente);
     if (deposito === 'deposito') {
         await Cliente.update(
-            { saldo: (Number(saldo) + Number(valor)) }, // aqui estou fazendo o update do saldo quando vendemos um ativo
+            { saldo: (Number(saldo) + Number(valor)) },
             { where: { codCliente } },
             );
     } else {
         await Cliente.update(
-            { saldo: (Number(saldo) - Number(valor)) }, // aqui estou fazendo o update do saldo quando vendemos um ativo
+            { saldo: (Number(saldo) - Number(valor)) }, 
             { where: { codCliente } },
             );
     }
+};
 
+const countClientInfos = async (codCliente) => {
+    const cliente = await Cliente.findByPk(codCliente);
+    const result = {
+        codCliente: cliente.codCliente,
+        name: cliente.name,
+        email: cliente.email,
+        image: cliente.image,
+        saldo: cliente.saldo,
+    };
+    return result;
 };
 
 module.exports = {
@@ -129,8 +156,10 @@ module.exports = {
     updateAtivosClienteVenda,
     getAllAtivoOfThecodClient,
     getAllclients,
+    listarTodasOsAtivos,
     getClienteByCod,
     gettingIdFromPayload,
     updateSaldoVendendoAtivo,
     updateSaldoDepositoOuSaque,
+    countClientInfos,
 };

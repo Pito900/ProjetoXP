@@ -1,5 +1,9 @@
 const express = require('express');
-const { getAllclients, getClienteByCod } = require('../services/clienteService');
+const { 
+    getAllclients, 
+    getClienteByCod,
+    countClientInfos,
+ } = require('../services/clienteService');
 
 const route = express.Router();
 
@@ -14,8 +18,15 @@ const getClienteByCodController = async (req, res) => {
     return res.status(200).json(cliente);
 };
 
+const countClientInfosController = async (req, res) => {
+    const { codCliente } = req.params;
+    const cliente = await countClientInfos(codCliente);
+    return res.status(200).json(cliente);
+};
+
 module.exports = {
     route,
     getAllClienteController,
     getClienteByCodController,
+    countClientInfosController,
 };

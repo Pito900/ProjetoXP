@@ -1,4 +1,5 @@
 const Joi = require('joi'); // vou fazer com joi para treinar. Me parece mais simples, para essa validação, do que fazer de outra forma
+const { getAllclients } = require('../services/clienteService');
 
 const comprasDTO = Joi.object({
     codCliente: Joi.number().min(1).required(),
@@ -20,6 +21,20 @@ const bodyCompraEVendaValidation = (req, res, next) => {
   next();
 };
 
+const clienteValidation = async (req, res, next) => { // validamos aqui se que está comprando e vendendo está logado
+    const { codCliente } = req.body;
+    const { email } = res.locals.payload;
+    const allClients = await getAllclients();
+    const clienterData = allClients.filter((user) => user.email === email)[0];
+    if (clienterData.codCliente !== codCliente) {
+        return res.status(401).json({ 
+            message: 'Você não é o usuário autorizado para realizar esta operação.',
+        });
+    }
+     next();
+ };
+
 module.exports = {
     bodyCompraEVendaValidation,
+    clienteValidation,
 };

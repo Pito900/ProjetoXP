@@ -1,12 +1,17 @@
 const { Ativo } = require('../database/models');
 
-const GettingQtdByCodAtivo = async (codAtivo) => {
-    const { qtdDisponivel, valor } = await Ativo.findByPk(codAtivo);
-    return { qtdDisponivel, valor };
+const getAllAtivos = async () => {
+    const allAtivos = await Ativo.findAll();
+    return allAtivos;
+};
+
+const gettingAtivoByCodAtivo = async (codAt) => {
+    const { qtdDisponivel, valor, codAtivo, ticker } = await Ativo.findByPk(codAt);
+    return { codAtivo, ticker, qtdDisponivel, valor: Number(valor) };
 };
 
 const updateQtdDisponivel = async (qtd, codAtivo, vendOrComp) => {
-    const { qtdDisponivel } = await GettingQtdByCodAtivo(codAtivo);
+    const { qtdDisponivel } = await gettingAtivoByCodAtivo(codAtivo);
     if (vendOrComp === 'compra') {
         await Ativo.update(
             { qtdDisponivel: (qtdDisponivel - qtd) }, // aqui estou fazendo o update
@@ -22,6 +27,7 @@ const updateQtdDisponivel = async (qtd, codAtivo, vendOrComp) => {
 };
 
 module.exports = {
-    GettingQtdByCodAtivo,
+    getAllAtivos,
+    gettingAtivoByCodAtivo,
     updateQtdDisponivel,
 };

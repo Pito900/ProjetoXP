@@ -1,10 +1,10 @@
-const { GettingQtdByCodAtivo, updateQtdDisponivel } = require('./ativoService');
+const { gettingAtivoByCodAtivo, updateQtdDisponivel } = require('./ativoService');
 const { Compra, Cliente } = require('../database/models');
 
 const getAllPurchase = async () => {
     const allPurchase = await Compra.findAll();
     const resposta = allPurchase.map(async (objeto) => {
-        const { valor } = await GettingQtdByCodAtivo(objeto.codAtivo);
+        const { valor } = await gettingAtivoByCodAtivo(objeto.codAtivo);
         return {
             id: objeto.id,
             codAtivo: objeto.codAtivo,
@@ -19,7 +19,7 @@ const getAllPurchase = async () => {
 };
 
 const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
-    const { qtdDisponivel, valor } = await GettingQtdByCodAtivo(codAtivo);
+    const { qtdDisponivel, valor } = await gettingAtivoByCodAtivo(codAtivo);
     if (qtdAtivo > Number(qtdDisponivel)) {
         return res.status(422).json({ message: 'A "qtdAtivo" é superior a qdtDisponível.' });
     }

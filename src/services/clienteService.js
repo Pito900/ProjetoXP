@@ -99,13 +99,29 @@ const gettingIdFromPayload = async (email) => {
     return codCliente;
 };
 
-const updatingSaldo = async (codCliente, codAtivo, qtd) => {
+const updateSaldoVendendoAtivo = async (codCliente, codAtivo, qtd) => {
     const { valor } = await Ativo.findByPk(codAtivo);
     const { saldo } = await Cliente.findByPk(codCliente);
         await Cliente.update(
             { saldo: (Number(saldo) + qtd * Number(valor)) }, // aqui estou fazendo o update do saldo quando vendemos um ativo
             { where: { codCliente } },
             );
+};
+
+const updateSaldoDepositoOuSaque = async (codCliente, valor, deposito) => {
+    const { saldo } = await Cliente.findByPk(codCliente);
+    if (deposito === 'deposito') {
+        await Cliente.update(
+            { saldo: (Number(saldo) + Number(valor)) }, // aqui estou fazendo o update do saldo quando vendemos um ativo
+            { where: { codCliente } },
+            );
+    } else {
+        await Cliente.update(
+            { saldo: (Number(saldo) - Number(valor)) }, // aqui estou fazendo o update do saldo quando vendemos um ativo
+            { where: { codCliente } },
+            );
+    }
+
 };
 
 module.exports = {
@@ -115,5 +131,6 @@ module.exports = {
     getAllclients,
     getClienteByCod,
     gettingIdFromPayload,
-    updatingSaldo,
+    updateSaldoVendendoAtivo,
+    updateSaldoDepositoOuSaque,
 };

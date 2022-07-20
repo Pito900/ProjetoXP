@@ -5,7 +5,7 @@ module.exports = {
         codAtivo: 1,
         ticker: 'PETR4',
         qtdDisponivel: 320,
-        valor: 200,
+        valor: 250,
       },
       {
         codAtivo: 2,
@@ -17,13 +17,13 @@ module.exports = {
         codAtivo: 3,
         ticker: 'XPBR31',
         qtdDisponivel: 400,
-        valor: 200,
+        valor: 300,
       },
       {
         codAtivo: 4,
         ticker: 'ELET3',
         qtdDisponivel: 300,
-        valor: 200,
+        valor: 270,
       },
       ], { timestamps: false });
   },

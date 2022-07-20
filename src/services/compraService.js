@@ -1,26 +1,37 @@
-const { Compra } = require('../database/models');
 const { GettingQtdByCodAtivo, updateQtdDisponivel } = require('./ativoService');
-const { updatingSaldo } = require('./clienteService');
+const { Compra, Cliente } = require('../database/models');
 
 const getAllPurchase = async () => {
     const allPurchase = await Compra.findAll();
-    return allPurchase;
+    const resposta = allPurchase.map(async (objeto) => {
+        const { valor } = await GettingQtdByCodAtivo(objeto.codAtivo);
+        return {
+            id: objeto.id,
+            codAtivo: objeto.codAtivo,
+            qtdAtivo: objeto.qtdAtivo,
+            valor: Number(valor),
+            codCliente: objeto.codCliente,
+            createdAt: objeto.createdAt,
+        };
+    });
+    const result = await Promise.all(resposta);
+    return result;
 };
 
 const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
-    const qtdDisponivel = await GettingQtdByCodAtivo(codAtivo);
-    if (qtdAtivo > qtdDisponivel) {
+    const { qtdDisponivel, valor } = await GettingQtdByCodAtivo(codAtivo);
+    if (qtdAtivo > Number(qtdDisponivel)) {
         return res.status(422).json({ message: 'A "qtdAtivo" é superior a qdtDisponível.' });
     }
-    const newPurchase = await Compra.create({ 
-        codAtivo, 
-        qtdAtivo,
-        codCliente, 
-        createdAt: new Date(),
-    });
-    await updatingSaldo(codCliente, codAtivo, qtdAtivo, 'compra');
+    await Compra.create({ codAtivo, qtdAtivo, codCliente, createdAt: new Date() });
+    const result = { codAtivo, qtdAtivo, codCliente, valor: Number(valor), createdAt: new Date() };
     await updateQtdDisponivel(qtdAtivo, codAtivo, 'compra');
-    return newPurchase;
+    const { saldo } = await Cliente.findByPk(codCliente);
+    await Cliente.update(
+        { saldo: (Number(saldo) - qtdAtivo * Number(valor)) }, // aqui estou fazendo o update do saldo quando compramos um ativo
+        { where: { codCliente } },
+        );
+    return result;
 };
 
 module.exports = {

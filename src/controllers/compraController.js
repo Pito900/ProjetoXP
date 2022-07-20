@@ -1,13 +1,11 @@
 const express = require('express');
+const { gettingIdFromPayload } = require('../services/clienteService');
 const { getAllPurchase, createPurchase } = require('../services/compraService');
-const { gettingIdFromPayload, getAllAtivoOfThecodClient } = require('../services/clienteService');
 
 const route = express.Router();
 
 const getAllPurchaseController = async (_req, res) => {
     const allPurchase = await getAllPurchase();
-    const a = await getAllAtivoOfThecodClient(2);
-    console.log(a);
     return res.status(200).json(allPurchase);
 };
 

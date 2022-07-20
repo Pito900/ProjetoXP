@@ -3,7 +3,7 @@ module.exports = {
     await queryInterface.bulkInsert('Compras',
       [{
         id: 1,
-        codAtivo: 1,
+        codAtivo: 2,
         qtdAtivo: 12,
         codCliente: 2,
         createdAt: new Date('2022-04-01T11:25:00.000Z'),

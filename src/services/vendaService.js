@@ -1,21 +1,25 @@
 const { Venda } = require('../database/models');
 const { updateQtdDisponivel } = require('./ativoService');
-const { getClienteByCod, updatingSaldo } = require('./clienteService');
+const { getClienteByCod, updatingSaldo, updateAtivosClienteVenda } = require('./clienteService');
 
-const createSale = async ({ codCliente, codAtivo, qAtivo }, res) => {
-    const { qtdAtivo } = await getClienteByCod(codCliente);
-    if (qAtivo > qtdAtivo) {
-        return res.status(422).json({ message: 'A "qAtivo" é superior a qtdAtivo.' });
+const createSale = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
+    const { ativos } = await getClienteByCod(codCliente);
+    const ativo = ativos.filter((objeto) => objeto.codAtivo === codAtivo)[0];
+    if (!ativo) {
+        return res.status(422).json({ message: 'O cliente não possui essse ativo.' });
     }
-    const newSale = await Venda.create({ 
-        codAtivo, 
-        qtdAtivo,
-        codCliente, 
-        createdAt: new Date(),
-    });
-    await updatingSaldo(codCliente, codAtivo, qAtivo, 'venda');
-    await updateQtdDisponivel(qAtivo, codAtivo, 'venda');
-    return newSale;
+    if (qtdAtivo > ativo.qtdAtivo) {
+        return res.status(422).json({ message: 'A "qtdAtivo" é superior a qtdAtivo do cliente.' });
+    }
+    await Venda.create({ codAtivo, qtdAtivo, codCliente, createdAt: new Date() });
+    const result = { 
+        codAtivo, qtdAtivo, codCliente, valor: Number(ativo.valor), createdAt: new Date(),
+    };
+    
+    await updateAtivosClienteVenda(codCliente, qtdAtivo);
+    await updateQtdDisponivel(qtdAtivo, codAtivo, 'venda');
+    await updatingSaldo(codCliente, codAtivo, qtdAtivo);
+    return result;
 };
 
 module.exports = {

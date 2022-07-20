@@ -2,7 +2,7 @@ const VendaSchema = (sequelize, DataTypes) => {
   const VendaTable = sequelize.define('Venda', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     codAtivo: DataTypes.INTEGER,
-    qtdVendida: DataTypes.INTEGER,
+    qtdAtivo: DataTypes.INTEGER,
     codCliente: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
   }, { timestamps: false });

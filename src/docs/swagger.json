@@ -92,13 +92,13 @@
         },
         "responses": {
           "400": {
-            "description": "Campo Obrigatório."
+            "description": "Bad Request."
           },
           "401": {
-            "description": "O Cliente logado pode realizar esta operação."
+            "description": "Unauthorized."
           },
           "422": {
-            "description": "O valor não é compatível com o esperado."
+            "description": "Unprocessable Entity"
           },
           "200": {
             "description": "OK",
@@ -158,13 +158,13 @@
         },
         "responses": {
           "400": {
-            "description": "Campo Obrigatório."
+            "description": "Bad Request."
           },
           "401": {
-            "description": "O Cliente logado não tem autorização para realizar esta operação."
+            "description": "Unauthorized."
           },
           "422": {
-            "description": "O valor não é compatível com o esperado."
+            "description": "Unprocessable Entity"
           },
           "200": {
             "description": "OK",
@@ -178,6 +178,68 @@
                         "type": "integer"
                       },
                       "qtdAtivo": {
+                        "type": "integer"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    },
+    "/conta/deposito": {
+      "post": {
+        "summary": "Faz depósitos na conta.",
+        "description": "Essa rota permite o cliente fazer depósitos em sua conta.",
+        "tags": ["Depositar"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/saqueEDeposito"
+              },
+              "examples": {
+                "venda": {
+                  "value": {
+                      "codCliente": 2, 
+                      "valor": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Campo Obrigatório."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "O valor não é compatível com o esperado."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "id": {
                         "type": "integer"
                       },
                       "codCliente": {
@@ -223,6 +285,17 @@
           },
           "qtdAtivo": {
             "type": "integer"
+          }
+        }
+      },
+      "saqueEDeposito": {
+        "type": "object",
+        "properties": {
+          "codCliente": {
+            "type": "integer"
+          },
+          "valor": {
+            "type": "decimal"
           }
         }
       }

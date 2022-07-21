@@ -202,7 +202,7 @@
       "post": {
         "summary": "Faz depósitos na conta.",
         "description": "Essa rota permite o cliente fazer depósitos em sua conta.",
-        "tags": ["Depositar"],
+        "tags": ["Deposito"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -223,13 +223,13 @@
         },
         "responses": {
           "400": {
-            "description": "Campo Obrigatório."
+            "description": "Bad Request."
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized."
           },
           "422": {
-            "description": "O valor não é compatível com o esperado."
+            "description": "Unprocessable Entity"
           },
           "200": {
             "description": "OK",
@@ -259,7 +259,119 @@
           }
         }
       }     
-    }
+    },
+    "/conta/saque": {
+      "post": {
+        "summary": "Faz saque da conta.",
+        "description": "Essa rota permite o cliente fazer saques em sua conta.",
+        "tags": ["Saque"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/saqueEDeposito"
+              },
+              "examples": {
+                "venda": {
+                  "value": {
+                      "codCliente": 2, 
+                      "valor": 1000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "id": {
+                        "type": "integer"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    },
+    "/assets/ativos/{codAtivo}": {
+      "get": {
+        "summary": "Lista o ativo.",
+        "description": "Essa rota busca o ativo pelo codAtivo.",
+        "tags": ["GET Ativo By codAtivo"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "codAtivo",
+            "in": "path",
+            "description": "identificador do ativo",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "codAtivo": {
+                        "type": "integer"
+                      },
+                      "ticker": {
+                        "type": "string"
+                      },
+                      "qtdDisponivel": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    }    
   },
   "components": {
     "schemas": {

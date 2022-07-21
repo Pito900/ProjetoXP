@@ -1,0 +1,238 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+      "title": "API do projetoXp - Francisco Monteiro",
+      "description": "Essa API auxilia na manipulção dos dados dos clientes, dos ativos e da corretora.",
+      "termsOfService": "link para os termos de serviços",
+      "contact": {
+          "email": "franciscorubenilto@gmail.com"
+      },
+      "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url":"http://localhost:3000",
+      "description": "Api de teste"
+    },
+    {
+        "url":"link2",
+        "description": "Api de produção"
+      }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Login do Cliente",
+        "description": "Essa rota serve para o cliente fazer o login.",
+        "tags": ["login"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginBody"
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "email": "francisco@gmail.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Email ou Senha está incorretos."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties":{
+                      "token": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/investimentos/vender": {
+      "post": {
+        "summary": "Venda de Ativos.",
+        "description": "Essa rota permite que o cliente venda seus ativos.",
+        "tags": ["venda"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vendaECompraBody"
+              },
+              "examples": {
+                "venda": {
+                  "value": {
+                      "codCliente": 2, 
+                      "codAtivo": 4, 
+                      "qtdAtivo": 10
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Campo Obrigatório."
+          },
+          "401": {
+            "description": "O Cliente logado não tem autorização para realizar esta operação."
+          },
+          "422": {
+            "description": "O valor passado tem que ser um inteiro e tem que ser maior que zero."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "codAtivo": {
+                        "type": "integer"
+                      },
+                      "qtdAtivo": {
+                        "type": "integer"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    },
+    "/investimentos/comprar": {
+      "post": {
+        "summary": "Compra de Ativos.",
+        "description": "Essa rota permite que o cliente compre ativos.",
+        "tags": ["compra"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vendaECompraBody"
+              },
+              "examples": {
+                "venda": {
+                  "value": {
+                      "codCliente": 2, 
+                      "codAtivo": 4, 
+                      "qtdAtivo": 10
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Campo Obrigatório."
+          },
+          "401": {
+            "description": "O Cliente logado não tem autorização para realizar esta operação."
+          },
+          "422": {
+            "description": "O valor passado tem que ser um inteiro e tem que ser maior que zero."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "codAtivo": {
+                        "type": "integer"
+                      },
+                      "qtdAtivo": {
+                        "type": "integer"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    }
+  },
+  "components": {
+    "schemas": {
+      "loginBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "vendaECompraBody": {
+        "type": "object",
+        "properties": {
+          "codCliente": {
+            "type": "integer"
+          },
+          "codAtivo": {
+            "type": "integer"
+          },
+          "qtdAtivo": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -14,7 +14,9 @@ const tokenVerification = (token) => {
         return 'Token not found';
     }
     try { // se o token vier correto 
-        const tokenValidationResult = jwt.verify(token, JWT_SECRET, jwtConfig);
+        const [, tk] = token.split(' '); // para o swagger...no inmnia é só usar o token padrão
+
+        const tokenValidationResult = jwt.verify(tk, JWT_SECRET, jwtConfig);
         return tokenValidationResult;
     } catch (e) { // o token veio, porém é inválido ou ta expirado (pasou 10 d)
         return 'Expired or invalid token';

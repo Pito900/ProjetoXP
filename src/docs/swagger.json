@@ -24,7 +24,7 @@
       "post": {
         "summary": "Login do Cliente",
         "description": "Essa rota serve para o cliente fazer o login.",
-        "tags": ["login"],
+        "tags": ["Login"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -70,7 +70,7 @@
       "post": {
         "summary": "Venda de Ativos.",
         "description": "Essa rota permite que o cliente venda seus ativos.",
-        "tags": ["venda"],
+        "tags": ["Venda de Ativos"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -95,10 +95,10 @@
             "description": "Campo Obrigatório."
           },
           "401": {
-            "description": "O Cliente logado não tem autorização para realizar esta operação."
+            "description": "O Cliente logado pode realizar esta operação."
           },
           "422": {
-            "description": "O valor passado tem que ser um inteiro e tem que ser maior que zero."
+            "description": "O valor não é compatível com o esperado."
           },
           "200": {
             "description": "OK",
@@ -136,7 +136,7 @@
       "post": {
         "summary": "Compra de Ativos.",
         "description": "Essa rota permite que o cliente compre ativos.",
-        "tags": ["compra"],
+        "tags": ["Compra de Ativos"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -148,8 +148,8 @@
                 "venda": {
                   "value": {
                       "codCliente": 2, 
-                      "codAtivo": 4, 
-                      "qtdAtivo": 10
+                      "codAtivo": 2, 
+                      "qtdAtivo": 15
                   }
                 }
               }
@@ -164,7 +164,7 @@
             "description": "O Cliente logado não tem autorização para realizar esta operação."
           },
           "422": {
-            "description": "O valor passado tem que ser um inteiro e tem que ser maior que zero."
+            "description": "O valor não é compatível com o esperado."
           },
           "200": {
             "description": "OK",

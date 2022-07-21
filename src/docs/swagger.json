@@ -371,6 +371,69 @@
           }
         }
       }     
+    },
+    "/clientes/ativos/{codCliente}": {
+      "get": {
+        "summary": "Lista ativos.",
+        "description": "Essa rota lista os ativos do cliente.",
+        "tags": ["GET Ativos By codCliente"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "codCliente",
+            "in": "path",
+            "description": "identificador do Cliente",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "ativos": {
+                        "itens": {
+                          "type": "array",
+                          "properties": {
+                            "codAtivo": {
+                              "type": "integer"
+                            },
+                            "ticker": {
+                              "type": "string"
+                            },
+                            "qtdAtivo": {
+                              "type": "integer"
+                            },
+                            "valor": {
+                              "type": "decimal"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
     }    
   },
   "components": {

@@ -59,11 +59,11 @@ getClienteByCodController,
 } = require('../controllers/clienteController');
 
 router.get('/clientes/ativos',
+validateToken,
 getAllClienteController);
 
 router.get('/clientes/ativos/:codCliente',
 validateToken,
-verAtivosDoClienteValidation,
 getClienteByCodController);
 
 ///
@@ -77,6 +77,7 @@ const { getAllAtivosController,
  } = require('../controllers/ativosController');
 
 router.get('/assets/ativos',
+validateToken,
 getAllAtivosController);
 
 router.get('/assets/ativos/:codAtivo',
@@ -84,6 +85,7 @@ validateToken,
 gettingQtdByCodAtivoController);
 
 router.get('/assets',
+validateToken,
 listarTodasOsAtivosController);
 
 ///

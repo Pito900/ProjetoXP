@@ -434,7 +434,80 @@
           }
         }
       }     
-    }    
+    },
+    "/assets": {
+      "get": {
+        "summary": "Lista todos os ativos.",
+        "description": "Essa rota lista todos os ativos da corretora e das carteiras dos clientes.",
+        "tags": ["GET all Ativos: corretora + carteiras"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {               
+                      "corretora": {
+                        "itens": {
+                          "type": "array",
+                          "properties": {
+                            "codAtivo": {
+                              "type": "integer"
+                            },
+                            "ticker": {
+                              "type": "string"
+                            },
+                            "qtdAtivo": {
+                              "type": "integer"
+                            },
+                            "valor": {
+                              "type": "decimal"
+                            }
+                          }
+                        }
+                      },
+                      "carteiras": {
+                        "codCliente": {
+                          "type": "integer"
+                        },
+                        "ativos": {
+                          "itens": {
+                            "type": "array",
+                            "properties": {
+                              "codAtivo": {
+                                "type": "integer"
+                              },
+                              "ticker": {
+                                "type": "string"
+                              },
+                              "qtdAtivo": {
+                                "type": "integer"
+                              },
+                              "valor": {
+                                "type": "decimal"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    }        
   },
   "components": {
     "schemas": {

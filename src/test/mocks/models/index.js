@@ -7,6 +7,11 @@ const saqueMockData = require('./saques.mock.json')
 
 
 
+const mockFindIDByAtivo = (Instance, id) => {
+  const result = Instance.filter(item => item.codAtivo === id);
+  return result[0];
+}
+
 const mockFindByPk = (Instance, id) => {
   const result = Instance.filter(item => item.id === id);
   return result[0];
@@ -27,7 +32,7 @@ const mockCreate = (Instance, data) => {
 const AtivoMock = {
     create: async (data) => mockCreate(ativoMockData, data),
     findAll: async () => ativoMockData,
-    findByPk: async (codAtivo) => mockFindByPk(ativoMockData, codAtivo),
+    findByPk: async (codAtivo) => mockFindIDByAtivo(ativoMockData, codAtivo),
 };
 
 const ClienteMock = {
@@ -42,19 +47,19 @@ const VendaMock = {
   findByPk: async (id) => mockFindByPk(vendaMockData, id),
 };
 
-const compraMock = {
+const CompraMock = {
   create: async (data) => mockCreate(compraMockData, data),
   findAll: async () => compraMockData,
   findByPk: async (id) => mockFindByPk(compraMockData, id),
 };
 
-const depositoMock = {
+const DepositoMock = {
   create: async (data) => mockCreate(depositoMockData, data),
   findAll: async () => depositoMockData,
   findByPk: async (id) => mockFindByPk(depositoMockData, id),
 };
 
-const saqueMock = {
+const SaqueMock = {
   create: async (data) => mockCreate(saqueMockData, data),
   findAll: async () => saqueMockData,
   findByPk: async (id) => mockFindByPk(saqueMockData, id),
@@ -64,7 +69,7 @@ module.exports = {
   AtivoMock,
   ClienteMock,
   VendaMock,
-  compraMock,
-  depositoMock,
-  saqueMock,
+  CompraMock,
+  DepositoMock,
+  SaqueMock,
 }

@@ -208,7 +208,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/saqueEDeposito"
+                "$ref": "#/components/schemas/saqueEDepositoBody"
               },
               "examples": {
                 "venda": {
@@ -270,7 +270,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/saqueEDeposito"
+                "$ref": "#/components/schemas/saqueEDepositoBody"
               },
               "examples": {
                 "venda": {
@@ -507,6 +507,57 @@
           }
         }
       }     
+    },
+    "/investimentos/logCompras": {
+      "get": {
+        "summary": "Lista as compras.",
+        "description": "Essa rota lista todas as compras de ativo.",
+        "tags": ["Log das compras de ativos"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "array",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },               
+                      "codAtivo": {
+                        "type": "integer"
+                      },
+                      "ticker": {
+                        "type": "string"
+                      },
+                      "qtdAtivo": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
     }        
   },
   "components": {
@@ -536,7 +587,7 @@
           }
         }
       },
-      "saqueEDeposito": {
+      "saqueEDepositoBody": {
         "type": "object",
         "properties": {
           "codCliente": {

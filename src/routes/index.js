@@ -28,7 +28,7 @@ getAllPurchaseController,
 createPurchaseController, 
 } = require('../controllers/compraController');
 
-router.get('/logCompras',
+router.get('/investimentos/logCompras',
 getAllPurchaseController);
 
 router.post('/investimentos/comprar',

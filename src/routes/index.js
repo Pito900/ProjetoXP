@@ -116,7 +116,9 @@ getAllDepositosController);
 
 // Rotas para Saque
 router.use('/conta/saque', require('../controllers/saqueController').route);
-const { createSaqueController } = require('../controllers/saqueController');
+const { createSaqueController,
+    getAllSaquesController,
+ } = require('../controllers/saqueController');
 
 router.post('/conta/saque',
 validateToken,
@@ -124,6 +126,10 @@ clienteValidation,
 bodyDepositoEVendaValidation,
 saqueMenorQueSaldo,
 createSaqueController);
+
+router.get('/conta/logSaques',
+validateToken,
+getAllSaquesController);
 
 ///
 

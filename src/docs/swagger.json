@@ -132,6 +132,57 @@
         }
       }     
     },
+    "/investimentos/logVendas": {
+      "get": {
+        "summary": "Lista as vendas.",
+        "description": "Essa rota lista todas as vendas de ativo.",
+        "tags": ["Log das vendas de ativos"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "array",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },               
+                      "codAtivo": {
+                        "type": "integer"
+                      },
+                      "ticker": {
+                        "type": "string"
+                      },
+                      "qtdAtivo": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    },
     "/investimentos/comprar": {
       "post": {
         "summary": "Compra de Ativos.",
@@ -185,6 +236,57 @@
                       },
                       "valor": {
                         "type": "decimal"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    },
+    "/investimentos/logCompras": {
+      "get": {
+        "summary": "Lista as compras.",
+        "description": "Essa rota lista todas as compras de ativo.",
+        "tags": ["Log das compras de ativos"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "array",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },               
+                      "codAtivo": {
+                        "type": "integer"
+                      },
+                      "ticker": {
+                        "type": "string"
+                      },
+                      "qtdAtivo": {
+                        "type": "integer"
+                      },
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "codCliente": {
+                        "type": "integer"
                       },
                       "createdAt": {
                         "type": "date"
@@ -546,109 +648,7 @@
           }
         }
       }     
-    },
-    "/investimentos/logCompras": {
-      "get": {
-        "summary": "Lista as compras.",
-        "description": "Essa rota lista todas as compras de ativo.",
-        "tags": ["Log das compras de ativos"],
-        "security": [{ "bearerAuth": [] }],
-        "responses": {
-          "400": {
-            "description": "Bad Request."
-          },
-          "401": {
-            "description": "Unauthorized."
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "itens": {
-                    "type": "array",
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },               
-                      "codAtivo": {
-                        "type": "integer"
-                      },
-                      "ticker": {
-                        "type": "string"
-                      },
-                      "qtdAtivo": {
-                        "type": "integer"
-                      },
-                      "valor": {
-                        "type": "decimal"
-                      },
-                      "codCliente": {
-                        "type": "integer"
-                      },
-                      "createdAt": {
-                        "type": "date"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }     
-    },
-    "/investimentos/logVendas": {
-      "get": {
-        "summary": "Lista as vendas.",
-        "description": "Essa rota lista todas as vendas de ativo.",
-        "tags": ["Log das vendas de ativos"],
-        "security": [{ "bearerAuth": [] }],
-        "responses": {
-          "400": {
-            "description": "Bad Request."
-          },
-          "401": {
-            "description": "Unauthorized."
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "itens": {
-                    "type": "array",
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },               
-                      "codAtivo": {
-                        "type": "integer"
-                      },
-                      "ticker": {
-                        "type": "string"
-                      },
-                      "qtdAtivo": {
-                        "type": "integer"
-                      },
-                      "valor": {
-                        "type": "decimal"
-                      },
-                      "codCliente": {
-                        "type": "integer"
-                      },
-                      "createdAt": {
-                        "type": "date"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }     
-    }             
+    }     
   },
   "components": {
     "schemas": {

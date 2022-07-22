@@ -7,6 +7,12 @@ const createSaque = async (codCliente, valor) => {
     return result;
 };
 
+const getAllSaques = async () => {
+    const result = await Saque.findAll();
+    return result;
+};
+
 module.exports = {
     createSaque,
+    getAllSaques,
 };

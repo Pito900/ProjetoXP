@@ -1,6 +1,8 @@
 const { Cliente, Ativo, Venda } = require('../database/models');
 const { getAllPurchase } = require('./compraService');
 
+const clientAlreadyReg = (reqBody) => Cliente.findOne({ where: { email: reqBody.email } });
+
 const arraydeAtivos = async (array1, array2) => {
     let result = [];
     for (let i = 0; i < array1.length; i++) {
@@ -151,7 +153,18 @@ const countClientInfos = async (codCliente) => {
     return result;
 };
 
+const createClient = (reqBody) => {
+    const newCliente = Cliente.create({
+        name: reqBody.name,
+        email: reqBody.email,
+        image: reqBody.image,
+        saldo: reqBody.saldo,
+    });
+    return newCliente;
+};
+
 module.exports = {
+    clientAlreadyReg,
     arraydeAtivos,
     updateAtivosClienteVenda,
     getAllAtivoOfThecodClient,
@@ -162,4 +175,5 @@ module.exports = {
     updateSaldoVendendoAtivo,
     updateSaldoDepositoOuSaque,
     countClientInfos,
+    createClient,
 };

@@ -62,6 +62,7 @@ getAllVendasController);
 router.use('/clientes/ativos', require('../controllers/clienteController').route);
 const { getAllClienteController,
 getClienteByCodController,
+createClientController,
 } = require('../controllers/clienteController');
 
 router.get('/clientes/ativos',
@@ -71,6 +72,9 @@ getAllClienteController);
 router.get('/clientes/ativos/:codCliente',
 validateToken,
 getClienteByCodController);
+
+router.post('/newCliente',
+createClientController);
 
 ///
 

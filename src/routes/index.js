@@ -87,13 +87,13 @@ createClientController);
 
 router.use('/assets/ativos', require('../controllers/ativosController').route);
 const {
-    gettingQtdByCodAtivoController,
+    gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
  } = require('../controllers/ativosController');
 
 router.get('/assets/ativos/:codAtivo',
 validateToken,
-gettingQtdByCodAtivoController);
+gettingAtivoByCodAtivoController);
 
 router.get('/assets',
 validateToken,

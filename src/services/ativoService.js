@@ -1,7 +1,11 @@
 const { Ativo } = require('../database/models');
 
 const gettingAtivoByCodAtivo = async (codAt) => {
-    const { qtdDisponivel, valor, codAtivo, ticker } = await Ativo.findByPk(codAt);
+    const ativo = await Ativo.findByPk(codAt);
+    if (!ativo) {
+        return ativo;
+     }
+    const { qtdDisponivel, valor, codAtivo, ticker } = ativo;
     return { codAtivo, ticker, qtdDisponivel, valor: Number(valor) };
 };
 

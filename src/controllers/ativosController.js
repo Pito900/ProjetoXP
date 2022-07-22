@@ -6,9 +6,12 @@ const {
 
 const route = express.Router();
 
-const gettingQtdByCodAtivoController = async (req, res) => {
+const gettingAtivoByCodAtivoController = async (req, res) => {
     const { codAtivo } = req.params;
     const ativo = await gettingAtivoByCodAtivo(codAtivo);
+    if (!ativo) {
+       return res.status(404).json({ message: 'Ativo não encontrado.' });
+    }
     return res.status(200).json(ativo);
 };
 
@@ -19,6 +22,6 @@ const listarTodasOsAtivosController = async (_req, res) => {
 
 module.exports = {
     route,
-    gettingQtdByCodAtivoController,
+    gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
 };

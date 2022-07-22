@@ -260,6 +260,45 @@
         }
       }     
     },
+    "/conta/logDepositos": {
+      "get": {
+        "summary": "Lista os depósitos.",
+        "description": "Essa rota lista todas os depósitos.",
+        "tags": ["Log dos depósitos."],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Unauthorized."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },               
+                      "valor": {
+                        "type": "decimal"
+                      },
+                      "codCliente": {
+                        "type": "integer"
+                      },
+                      "createdAt": {
+                        "type": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }     
+    },
     "/conta/saque": {
       "post": {
         "summary": "Faz saque da conta.",
@@ -609,7 +648,7 @@
           }
         }
       }     
-    }              
+    }             
   },
   "components": {
     "schemas": {

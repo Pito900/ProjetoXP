@@ -1,5 +1,5 @@
 const { Venda } = require('../database/models');
-const { updateQtdDisponivel } = require('./ativoService');
+const { gettingAtivoByCodAtivo, updateQtdDisponivel } = require('./ativoService');
 const { getClienteByCod, 
     updateSaldoVendendoAtivo, 
     updateAtivosClienteVenda } = require('./clienteService');
@@ -26,7 +26,20 @@ const createSale = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
 
 const getAllVendas = async () => {
     const allVendas = await Venda.findAll();
-    return allVendas;
+    const resposta = allVendas.map(async (objeto) => {
+        const { valor, ticker } = await gettingAtivoByCodAtivo(objeto.codAtivo);
+        return {
+            id: objeto.id,
+            codAtivo: objeto.codAtivo,
+            ticker,
+            qtdAtivo: objeto.qtdAtivo,
+            valor: Number(valor),
+            codCliente: objeto.codCliente,
+            createdAt: objeto.createdAt,
+        };
+    });
+    const result = await Promise.all(resposta);
+    return result;
 };
 
 module.exports = {

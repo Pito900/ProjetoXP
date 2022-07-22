@@ -98,13 +98,19 @@ listarTodasOsAtivosController);
 
 // Rotas para Depósitos
 router.use('/conta/deposito', require('../controllers/depositoController').route);
-const { createDepositoController } = require('../controllers/depositoController');
+const { createDepositoController, 
+    getAllDepositosController,
+} = require('../controllers/depositoController');
 
 router.post('/conta/deposito',
 validateToken,
 clienteValidation,
 bodyDepositoEVendaValidation,
 createDepositoController);
+
+router.get('/conta/logDepositos',
+validateToken,
+getAllDepositosController);
 
 ///
 

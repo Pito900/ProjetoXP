@@ -7,6 +7,12 @@ const createDeposito = async (codCliente, valor) => {
     return result;
 };
 
+const getAllDepositos = async () => {
+    const result = await Deposito.findAll();
+    return result;
+};
+
 module.exports = {
     createDeposito,
+    getAllDepositos,
 };

@@ -1,0 +1,38 @@
+[
+	{
+		"id": 1,
+		"codAtivo": 2,
+		"ticker": "VALE4",
+		"qtdAtivo": 12,
+		"valor": 200,
+		"codCliente": 2,
+		"createdAt": "2022-04-01T11:25:00.000Z"
+	},
+	{
+		"id": 2,
+		"codAtivo": 1,
+		"ticker": "PETR4",
+		"qtdAtivo": 18,
+		"valor": 250,
+		"codCliente": 1,
+		"createdAt": "2022-04-01T11:25:00.000Z"
+	},
+	{
+		"id": 3,
+		"codAtivo": 4,
+		"ticker": "ELET3",
+		"qtdAtivo": 14,
+		"valor": 270,
+		"codCliente": 1,
+		"createdAt": "2022-05-01T19:18:00.000Z"
+	},
+	{
+		"id": 4,
+		"codAtivo": 3,
+		"ticker": "XPBR31",
+		"qtdAtivo": 20,
+		"valor": 300,
+		"codCliente": 2,
+		"createdAt": "2022-03-01T19:02:00.000Z"
+	}
+]

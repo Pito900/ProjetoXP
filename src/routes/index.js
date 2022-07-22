@@ -10,6 +10,9 @@ const { bodyLoginValidation } = require('../middlewares/bodyLoginValidation');
 const { verAtivosDoClienteValidation } = require('../middlewares/ativosCodClienteMiddleware');
 const { bodyDepositoEVendaValidation,
     saqueMenorQueSaldo } = require('../middlewares/BodyDepositoESaqueMiddleware');
+const { bodyNewClienteValidation,
+    emailValidation,
+ } = require('../middlewares/bodyNewClienteMiddleware');
 
 ///
 
@@ -74,6 +77,8 @@ validateToken,
 getClienteByCodController);
 
 router.post('/newCliente',
+bodyNewClienteValidation,
+emailValidation,
 createClientController);
 
 ///

@@ -24,6 +24,12 @@ const createSale = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
     return result;
 };
 
+const getAllVendas = async () => {
+    const allVendas = await Venda.findAll();
+    return allVendas;
+};
+
 module.exports = {
     createSale,
+    getAllVendas,
 };

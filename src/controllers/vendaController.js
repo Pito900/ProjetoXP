@@ -1,5 +1,5 @@
 const express = require('express');
-const { createSale } = require('../services/vendaService');
+const { createSale, getAllVendas } = require('../services/vendaService');
 const { gettingIdFromPayload } = require('../services/clienteService');
 
 const route = express.Router();
@@ -12,8 +12,14 @@ const createSaleController = async (req, res) => {
     return res.status(201).json(newSale);
 };
 
+const getAllVendasController = async (_req, res) => {
+    const allVendas = await getAllVendas();
+    return res.status(200).json(allVendas);
+};
+
 module.exports = {
     route,
     createSaleController,
+    getAllVendasController,
 
 };

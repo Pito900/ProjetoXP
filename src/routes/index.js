@@ -41,13 +41,19 @@ createPurchaseController);
 
 // Rotas relacionadas a venda de ativos
 router.use('/investimentos/vender', require('../controllers/vendaController').route);
-const { createSaleController } = require('../controllers/vendaController');
+const { createSaleController, 
+    getAllVendasController,
+} = require('../controllers/vendaController');
 
 router.post('/investimentos/vender',
 validateToken,
 bodyCompraEVendaValidation,
 clienteValidation,
 createSaleController);
+
+router.get('/investimentos/logVendas',
+validateToken,
+getAllVendasController);
 
 ///
 

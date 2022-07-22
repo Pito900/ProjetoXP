@@ -1,10 +1,5 @@
 const { Ativo } = require('../database/models');
 
-const getAllAtivos = async () => {
-    const allAtivos = await Ativo.findAll();
-    return allAtivos;
-};
-
 const gettingAtivoByCodAtivo = async (codAt) => {
     const { qtdDisponivel, valor, codAtivo, ticker } = await Ativo.findByPk(codAt);
     return { codAtivo, ticker, qtdDisponivel, valor: Number(valor) };
@@ -27,7 +22,6 @@ const updateQtdDisponivel = async (qtd, codAtivo, vendOrComp) => {
 };
 
 module.exports = {
-    getAllAtivos,
     gettingAtivoByCodAtivo,
     updateQtdDisponivel,
 };

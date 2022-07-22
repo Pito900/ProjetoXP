@@ -1,15 +1,10 @@
 const express = require('express');
 const { listarTodasOsAtivos } = require('../services/clienteService');
-const { getAllAtivos, 
+const {
     gettingAtivoByCodAtivo,
  } = require('../services/ativoService');
 
 const route = express.Router();
-
-const getAllAtivosController = async (_req, res) => {
-    const allAtivosToBuy = await getAllAtivos();
-    return res.status(200).json(allAtivosToBuy);
-};
 
 const gettingQtdByCodAtivoController = async (req, res) => {
     const { codAtivo } = req.params;
@@ -24,7 +19,6 @@ const listarTodasOsAtivosController = async (_req, res) => {
 
 module.exports = {
     route,
-    getAllAtivosController,
     gettingQtdByCodAtivoController,
     listarTodasOsAtivosController,
 };

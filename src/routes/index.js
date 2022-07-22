@@ -77,14 +77,10 @@ getClienteByCodController);
 // Rotas para ativos
 
 router.use('/assets/ativos', require('../controllers/ativosController').route);
-const { getAllAtivosController, 
+const {
     gettingQtdByCodAtivoController,
     listarTodasOsAtivosController,
  } = require('../controllers/ativosController');
-
-router.get('/assets/ativos',
-validateToken,
-getAllAtivosController);
 
 router.get('/assets/ativos/:codAtivo',
 validateToken,

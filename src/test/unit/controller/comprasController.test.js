@@ -2,10 +2,10 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { 
     getAllPurchaseController,
- } = require('../../controllers/compraController');
-const { Ativo, Compra } = require('../../database/models');
-const Mock = require('../mocks/models/index.js');
-const comprasMockData = require('../mocks/models/compras.mock.json');
+ } = require('../../../controllers/compraController');
+const { Ativo, Compra } = require('../../../database/models');
+const Mock = require('../../mocks/models/index.js');
+const comprasMockData = require('../../mocks/models/compras.mock.json');
 
 
 describe(('Testa A função getAllPurchaseController.'), () => {

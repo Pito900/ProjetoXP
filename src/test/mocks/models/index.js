@@ -34,13 +34,13 @@ const mockCreate = (Instance, data) => {
 };
 
 const mockCreateCliente = (Instance, data) => {
-  // if (!data) {
-  //   return;
-  // }
+  if (!data) {
+    return;
+  }
   const newData = data;
-  // if (Instance[0].codCliente) {
-  //   newData.codCliente = Date.now();
-  // }
+  if (Instance[0].codCliente) {
+    newData.codCliente = Date.now();
+  }
   Instance.push(newData);
   return newData;
 };

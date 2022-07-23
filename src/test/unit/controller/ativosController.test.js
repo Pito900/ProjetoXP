@@ -1,9 +1,9 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const { gettingAtivoByCodAtivoController, listarTodasOsAtivosController } = require('../../controllers/ativosController');
-const { Ativo, Cliente, Compra, Venda } = require('../../database/models');
-const Mock = require('../mocks/models/index.js');
-const ativoMockData = require('../mocks/models/ativos.mock.json');
+const { gettingAtivoByCodAtivoController, listarTodasOsAtivosController } = require('../../../controllers/ativosController');
+const { Ativo, Cliente, Compra, Venda } = require('../../../database/models');
+const Mock = require('../../mocks/models/index.js');
+const ativoMockData = require('../../mocks/models/ativos.mock.json');
 
 describe(('Testando as funções camada de ativoController.'), async () => {
 

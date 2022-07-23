@@ -1,11 +1,11 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { 
-    getAllVendasController,
- } = require('../../controllers/vendaController');
-const { Ativo,  Venda } = require('../../database/models');
-const Mock = require('../mocks/models/index.js');
-const vendasMockData = require('../mocks/models/vendas.mock.json');
+  getAllVendasController,
+ } = require('../../../controllers/vendaController');
+const { Ativo,  Venda } = require('../../../database/models');
+const Mock = require('../../mocks/models/index.js');
+const vendasMockData = require('../../mocks/models/vendas.mock.json');
 
 
 describe(('Testa A função getAllVendasController.'), () => {
@@ -20,6 +20,7 @@ describe(('Testa A função getAllVendasController.'), () => {
     .returns();
   })
     after(()=> {
+      Venda.findAll.restore()
       Ativo.findByPk.restore();
     })
     it('O status code deve retornar 200.', async () => {

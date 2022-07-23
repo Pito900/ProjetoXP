@@ -3,9 +3,9 @@ const sinon = require('sinon');
 const { getClienteByCodClienteController,
 countClientInfosController,
 createClientController,
- } = require('../../controllers/clienteController');
-const { Cliente, Ativo, Compra, Venda } = require('../../database/models');
-const Mock = require('../mocks/models/index.js');
+ } = require('../../../controllers/clienteController');
+const { Cliente, Ativo, Compra, Venda } = require('../../../database/models');
+const Mock = require('../../mocks/models/index.js');
 
 describe(('Testa as funções do clienteController'), async ()=> { 
     let res = {};

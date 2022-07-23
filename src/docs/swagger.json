@@ -17,8 +17,9 @@
     {
       "url":"https://projetoxp.herokuapp.com/",
       "description": "Api de produção"
-      }
+    }
   ],
+  "schemes": ["http", "https"],
   "paths": {
     "/login": {
       "post": {

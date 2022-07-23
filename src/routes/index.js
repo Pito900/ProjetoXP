@@ -63,18 +63,19 @@ getAllVendasController);
 // Rotas para clientes
 
 router.use('/clientes/ativos', require('../controllers/clienteController').route);
-const { getAllClienteController,
-getClienteByCodController,
+const { 
+// getAllClienteController,
+getClienteByCodClienteController,
 createClientController,
 } = require('../controllers/clienteController');
 
-router.get('/clientes/ativos',
-validateToken,
-getAllClienteController);
+// router.get('/clientes/ativos',
+// validateToken,
+// getAllClienteController);
 
 router.get('/clientes/ativos/:codCliente',
 validateToken,
-getClienteByCodController);
+getClienteByCodClienteController);
 
 router.post('/newCliente',
 bodyNewClienteValidation,

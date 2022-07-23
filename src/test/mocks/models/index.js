@@ -11,6 +11,10 @@ const mockFindIDByAtivo = (Instance, id) => {
   const result = Instance.filter(item => item.codAtivo === id);
   return result[0];
 }
+const mockFindIDByCliente = (Instance, id) => {
+  const result = Instance.filter(item => item.codCliente === id);
+  return result[0];
+}
 
 const mockFindByPk = (Instance, id) => {
   const result = Instance.filter(item => item.id === id);
@@ -29,6 +33,18 @@ const mockCreate = (Instance, data) => {
     return newData;
 };
 
+const mockCreateCliente = (Instance, data) => {
+  if (!data) {
+    return;
+  }
+  const newData = data;
+  if (Instance[0].codCliente) {
+    newData.codCliente = Date.now();
+  }
+  Instance.push(newData);
+  return newData;
+};
+
 const AtivoMock = {
     create: async (data) => mockCreate(ativoMockData, data),
     findAll: async () => ativoMockData,
@@ -36,9 +52,9 @@ const AtivoMock = {
 };
 
 const ClienteMock = {
-  create: async (data) => mockCreate(clienteMockData, data),
+  create: async (data) => mockCreateCliente(clienteMockData, data),
   findAll: async () => clienteMockData,
-  findByPk: async (codCliente) => mockFindByPk(clienteMockData, codCliente),
+  findByPk: async (codCliente) => mockFindIDByCliente(clienteMockData, codCliente),
 };
 
 const VendaMock = {

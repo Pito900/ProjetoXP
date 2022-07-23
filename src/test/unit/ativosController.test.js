@@ -5,8 +5,9 @@ const { Ativo, Cliente, Compra, Venda } = require('../../database/models');
 const Mock = require('../mocks/models/index.js');
 const ativoMockData = require('../mocks/models/ativos.mock.json');
 
+describe(('Testando as funções camada de ativoController.'), async () => {
 
-describe('Testando a função do controller que gera os dados do endpoint GET /assets/ativos/:codAtivo.', () => {
+describe('Testando a função do controller que gera os dados do endpoint GET /clientes/ativos/:codCliente.', () => {
     let res = {};
     let req = {};
     
@@ -83,6 +84,8 @@ describe('Testando a função do controller que gera os dados do endpoint GET /a
           Cliente.findAll.restore();
           Compra.findAll.restore();
           Ativo.findByPk.restore();
+          Venda.findAll.restore();
+          Ativo.findAll.restore();
         })
         it('O status code deve retornar 200', async () => {
            const a = await listarTodasOsAtivosController(req, res);
@@ -134,3 +137,5 @@ describe('Testando a função do controller que gera os dados do endpoint GET /a
         });
     });
 });
+
+})

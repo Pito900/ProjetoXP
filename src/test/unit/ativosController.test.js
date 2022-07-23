@@ -88,8 +88,7 @@ describe('Testando a função do controller que gera os dados do endpoint GET /a
           Ativo.findAll.restore();
         })
         it('O status code deve retornar 200', async () => {
-           const a = await listarTodasOsAtivosController(req, res);
-           console.log(a);
+           await listarTodasOsAtivosController(req, res);
             expect(res.status.calledWith(200)).to.be.equal(true)
 
         });

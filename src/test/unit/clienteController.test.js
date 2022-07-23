@@ -8,9 +8,9 @@ const { Cliente, Ativo, Compra, Venda } = require('../../database/models');
 const Mock = require('../mocks/models/index.js');
 
 describe(('Testa as funções do clienteController'), async ()=> { 
+    let res = {};
+    let req = {};
   describe(('Testando a função do clienteController que gera os dados do endpoint GET /assets/ativos/:codAtivo.'), () => {
-        let res = {};
-        let req = {};
         before(async () => {
             sinon.stub(Cliente, "findByPk").callsFake(Mock.ClienteMock.findByPk);
             sinon.stub(Compra, "findAll").callsFake(Mock.CompraMock.findAll);
@@ -57,11 +57,8 @@ describe(('Testa as funções do clienteController'), async ()=> {
             })).to.be.equal(true)
      });
   });
-
   describe(('Testando a função do clienteController que gera os dados do endpoint GET /conta/:codCliente.'), () => {
-     let res = {};
-    let req = {};
-    describe(('Quando o codCliente está correto (é o logado).'), () => {
+  describe(('Quando o codCliente está correto (é o logado).'), () => {
         before(async () => {
             sinon.stub(Cliente, "findByPk").callsFake(Mock.ClienteMock.findByPk);
             req.params = {
@@ -90,34 +87,6 @@ describe(('Testa as funções do clienteController'), async ()=> {
             "saldo": "1000000"
         })).to.be.equal(true)
      });
-    });
-  })
-
-  describe(('Testando a função do clienteController que gera os dados do endpoint GET /newCliente.'), () => {
-    let res = {};
-    let req = {};
-    describe(('Quando o codCliente está correto.'), () => {
-        before(async () => {
-            sinon.stub(Cliente, "create").callsFake(Mock.ClienteMock.create);
-            req.body = {
-                "name": "Robson",
-                "email": "robson@gmail.com",
-                "image": "https://img2.gratispng.com/20180404/ire/kisspng-computer-icons-physician-login-medicine-user-avatar-5ac45a4d44fe99.2456489015228176132826.jpg",
-                "saldo": "5000"
-              }
-            res.status = sinon.stub()
-            .returns(res);
-            res.json = sinon.stub()
-            .returns();
-            res.body = sinon.stub().returns(res)
-        })
-        after(()=> {
-            Cliente.create.restore();
-        })
-     it('O status code deve retornar 201', async () => {
-        await createClientController(req, res);
-        expect(res.status.calledWith(201)).to.be.equal(true)
-    });
     });
   })
 })

@@ -5,11 +5,13 @@
   "main": "src/server.js",
   "scripts": {
     "test": "mocha src/test/unit",
+    "heroku": "node .",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
     "drop": "npx sequelize-cli db:drop",
-    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
+    "createdb": "npx sequelize-cli db:create",
+    "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
-    "start": "node .",
+    "start": "npm run heroku",
     "dev": "nodemon ."
   },
   "repository": {

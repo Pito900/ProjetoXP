@@ -28,6 +28,10 @@ module.exports = {
     "dialect": "postgres",
     "dialectOptions": {
       timezone: 'Z',
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
     },
   }
 }

@@ -96,7 +96,7 @@ router.get('/assets/ativos/:codAtivo',
 validateToken,
 gettingAtivoByCodAtivoController);
 
-router.get('/assets',
+router.get('/',
 validateToken,
 listarTodasOsAtivosController);
 

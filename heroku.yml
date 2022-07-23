@@ -1,5 +1,4 @@
-build:
-  docker:
-    web: docker-compose.yml
-run:
-  web: node src/server.js 
+setup:
+  build:
+    docker:
+      web: Dockerfile

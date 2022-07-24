@@ -73,6 +73,7 @@ updateClienteEmailInfosController,
 
 router.get('/clientes/ativos/:codCliente',
 validateToken,
+acesssoClienteValidation,
 getClienteByCodClienteController);
 
 router.post('/newCliente',
@@ -98,13 +99,12 @@ router.use('/assets/ativos', require('../controllers/ativosController').route);
 const {
     gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
-    creatAtivoController,
+    createAtivoController,
     updateAtivosInfosController,
  } = require('../controllers/ativosController');
 
 router.get('/assets/ativos/:codAtivo',
 validateToken,
-acesssoClienteValidation,
 gettingAtivoByCodAtivoController);
 
 router.get('/assets',
@@ -116,7 +116,7 @@ router.post('/assets/newAtivo',
 validateToken,
 acesssoClienteValidation,
 createAtivoValidation,
-creatAtivoController);
+createAtivoController);
 
 router.put('/assets/ativos/update',
 validateToken,

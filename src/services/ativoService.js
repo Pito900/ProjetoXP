@@ -1,6 +1,6 @@
 const { Ativo } = require('../database/models');
 
-const ativoAlreadyReg = (reqBody) => Ativo.findOne({ where: { ticker: reqBody.ticker } });
+const ativoAlreadyReg = (reqBody) => Ativo.findOne({ where: { ticker: reqBody.ticker } }); // verifica se o ativo existe
 
 const gettingAtivoByCodAtivo = async (codAt) => {
     const ativo = await Ativo.findByPk(codAt);

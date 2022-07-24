@@ -2,7 +2,7 @@ const { Venda } = require('../database/models');
 const { gettingAtivoByCodAtivo, updateQtdDisponivel } = require('./ativoService');
 const { getClienteByCod, 
     updateSaldoVendendoAtivo, 
-    updateAtivosClienteVenda } = require('./clienteService');
+    getAllVendasDoCliente } = require('./clienteService');
 
 const createSale = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
     const { ativos } = await getClienteByCod(codCliente);
@@ -18,7 +18,7 @@ const createSale = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
         codAtivo, qtdAtivo, codCliente, valor: Number(ativo.valor), createdAt: new Date(),
     };
     
-    await updateAtivosClienteVenda(codCliente, qtdAtivo);
+    await getAllVendasDoCliente(codCliente, qtdAtivo);
     await updateQtdDisponivel(qtdAtivo, codAtivo, 'venda');
     await updateSaldoVendendoAtivo(codCliente, codAtivo, qtdAtivo);
     return result;

@@ -1,6 +1,5 @@
 const express = require('express');
 const { 
-    // getAllclients, 
     getClienteByCod,
     countClientInfos,
     createClient,
@@ -20,7 +19,7 @@ const getClienteByCodClienteController = async (req, res) => {
 
 const countClientInfosController = async (req, res) => {
     const { codCliente } = req.params;
-    const cliente = await countClientInfos(codCliente);
+    const cliente = await countClientInfos(codCliente, res);
     return res.status(200).json(cliente);
 };
 
@@ -48,7 +47,6 @@ const deleteContaController = async (req, res) => {
 
 module.exports = {
     route,
-    // getAllClienteController,
     getClienteByCodClienteController,
     countClientInfosController,
     createClientController,

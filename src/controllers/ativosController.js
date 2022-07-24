@@ -23,7 +23,7 @@ const listarTodasOsAtivosController = async (_req, res) => {
     return res.status(200).json(allAtivos);
 };
 
-const creatAtivoController = async (req, res) => {
+const createAtivoController = async (req, res) => {
     const ativoAlreadyExist = await ativoAlreadyReg(req.body);
     if (ativoAlreadyExist) {
         return res.status(409).json({ message: 'Este ativo já está cadastrado.' });
@@ -42,6 +42,6 @@ module.exports = {
     route,
     gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
-    creatAtivoController,
+    createAtivoController,
     updateAtivosInfosController,
 };

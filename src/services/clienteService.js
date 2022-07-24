@@ -1,8 +1,9 @@
 const { Cliente, Ativo, Venda } = require('../database/models');
 const { getAllPurchase } = require('./compraService');
 
-const clientAlreadyReg = (reqBody) => Cliente.findOne({ where: { email: reqBody.email } });
+const clientAlreadyReg = (reqBody) => Cliente.findOne({ where: { email: reqBody.email } }); // verifica se o cliente existe
 
+// essa função agrupa o conjunto de ativos vendidos e comprados e volta o saldo disso
 const arraydeAtivos = async (array1, array2) => {
     let result = [];
     for (let i = 0; i < array1.length; i++) {
@@ -22,7 +23,7 @@ const arraydeAtivos = async (array1, array2) => {
      }
     return result;
 };
-
+// utilizo essa função para agrupar todas as compras e vendas dos clientes
 const AgrupandoAtivos = (array) => {
     const result = [];
     array.map((ativo) => {
@@ -43,7 +44,7 @@ const AgrupandoAtivos = (array) => {
     return result;
 };
 
-const updateAtivosClienteVenda = async (codCliente) => {
+const getAllVendasDoCliente = async (codCliente) => {
     const allPurchase = await Venda.findAll();
     const allcodClienteVenda = allPurchase
     .filter((ativo) => ativo.codCliente === codCliente)
@@ -57,7 +58,7 @@ const updateAtivosClienteVenda = async (codCliente) => {
     return result;
   };
 
-const getAllAtivoOfThecodClient = async (codCliente) => {
+const getAllAtivoDoClient = async (codCliente) => {
     const allPurchase = await getAllPurchase();
     const allcodClienteAtivos = allPurchase
       .filter((ativo) => ativo.codCliente === codCliente)
@@ -72,8 +73,8 @@ const getAllAtivoOfThecodClient = async (codCliente) => {
   };
 
 const npPasswordPathClienteAtivos = async (object) => { // retirei o password para trabalharmos sem essa informação sensível.
-    const codClienteAtivos = await getAllAtivoOfThecodClient(object.codCliente);
-    const clientVendas = await updateAtivosClienteVenda(object.codCliente);
+    const codClienteAtivos = await getAllAtivoDoClient(object.codCliente);
+    const clientVendas = await getAllVendasDoCliente(object.codCliente);
     const arrayAtivos = await arraydeAtivos(codClienteAtivos, clientVendas);
     const newObj = {
         codCliente: object.codCliente,
@@ -142,8 +143,11 @@ const updateSaldoDepositoOuSaque = async (codCliente, valor, deposito) => {
     }
 };
 
-const countClientInfos = async (codCliente) => {
+const countClientInfos = async (codCliente, res) => {
     const cliente = await Cliente.findByPk(codCliente);
+    if (!cliente) {
+        return res.status(404).json({ message: 'O Cliente não existe.' });
+      }
     const result = {
         codCliente: cliente.codCliente,
         name: cliente.name,
@@ -202,8 +206,8 @@ const deleteConta = async (codCliente, res) => {
 module.exports = {
     clientAlreadyReg,
     arraydeAtivos,
-    updateAtivosClienteVenda,
-    getAllAtivoOfThecodClient,
+    getAllVendasDoCliente,
+    getAllAtivoDoClient,
     getAllclients,
     listarTodasOsAtivos,
     getClienteByCod,

@@ -20,7 +20,9 @@ const getAllPurchase = async () => {
 };
 
 const createPurchase = async ({ codCliente, codAtivo, qtdAtivo }, res) => {
-    const { qtdDisponivel, valor } = await gettingAtivoByCodAtivo(codAtivo);
+    const ativo = await gettingAtivoByCodAtivo(codAtivo);
+    if (!ativo) res.status(404).json({ message: 'Esse ativo não existe.' });
+    const { qtdDisponivel, valor } = ativo;
     if (qtdAtivo > Number(qtdDisponivel)) {
         return res.status(422).json({ message: 'A "qtdAtivo" é superior a qdtDisponível.' });
     }

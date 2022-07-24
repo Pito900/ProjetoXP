@@ -42,7 +42,7 @@ Fiz o docker da minha aplicação pensando em receber PRs e para que possam aval
 
 <details>
   <summary  id="diagrama"><strong>🎲 Base de dados</strong></summary>
-  A Base de dados, local, é o MySQL e as configurações de ambiente desta base está tanto no [arquivo](docker-compose.yml).
+  A Base de dados, local, utilizada foi a `MySQL` e as configurações de ambiente desta base está tanto no [arquivo](docker-compose.yml).
 
   A figura a seguir mostra como a `base de dados` está estruturada.
 
@@ -73,6 +73,17 @@ Fiz o docker da minha aplicação pensando em receber PRs e para que possam aval
 
 <br />
 
+# Tecnologias
+<img align="center" alt="Js" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" />
+  <img align="center" alt="Js" height="30" width="40" src="./public/swagger1.png">
+  <img align="center" alt="docker" height="30" width="40"
+  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" />
+  <img align="center" alt="nodejs" height="30" width="40" src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg">
+  <img align="center" alt="git" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg">
+  <img align="center" alt="linux" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg">
+  <img align="center" alt="Js" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mocha/mocha-plain.svg" />
+    </div>
+<br />
 
 # Endpoints
 Irei me concentrar, nesse momento, em mostrar como a API está bem "integrada" com a base de dados. Você pode acessar todos os endPoints do meu projeto utilizando o [Swagger](https://projetoxp.herokuapp.com/apiDocs/). Vou falar sobre como alguns endPoints afetam a base de dados. 

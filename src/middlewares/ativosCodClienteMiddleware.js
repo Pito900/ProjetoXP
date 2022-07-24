@@ -1,6 +1,6 @@
 const { getAllclients } = require('../services/clienteService');
 
-const verAtivosDoClienteValidation = async (req, res, next) => { // validamos aqui se o usuário é o mesmo q mudou o post
+const acesssoClienteValidation = async (req, res, next) => { // validamos aqui se o usuário é o mesmo q mudou o post
     const { codCliente } = req.params;
     const { email } = res.locals.payload; // aqui usei o token do loginPost no insomnia
     const allClients = await getAllclients();
@@ -14,5 +14,5 @@ const verAtivosDoClienteValidation = async (req, res, next) => { // validamos aq
  };
 
  module.exports = { 
-    verAtivosDoClienteValidation,
+    acesssoClienteValidation,
 }; 

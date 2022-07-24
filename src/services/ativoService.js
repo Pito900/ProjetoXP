@@ -36,9 +36,19 @@ const createAtivo = async (reqBody) => {
     return newAtivo;
 };
 
+const updateAtivosInfos = async (codAtivo, ticker, qtdDisponivel, valor) => {
+        await Ativo.update(
+            { ticker, qtdDisponivel, valor },
+            { where: { codAtivo } },
+            );
+    const ativo = await Ativo.findByPk(codAtivo);
+    return ativo;
+};
+
 module.exports = {
     ativoAlreadyReg,
     gettingAtivoByCodAtivo,
     updateQtdDisponivel,
     createAtivo,
+    updateAtivosInfos,
 };

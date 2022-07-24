@@ -4,6 +4,7 @@ const {
     ativoAlreadyReg,
     gettingAtivoByCodAtivo,
     createAtivo,
+    updateAtivosInfos,
  } = require('../services/ativoService');
 
 const route = express.Router();
@@ -31,9 +32,16 @@ const creatAtivoController = async (req, res) => {
     return res.status(201).json(newAtivo);
 };
 
+const updateAtivosInfosController = async (req, res) => {
+    const { codAtivo, ticker, qtdDisponivel, valor } = req.body;
+    const ativoPUT = await updateAtivosInfos(codAtivo, ticker, qtdDisponivel, valor);
+    return res.status(200).json(ativoPUT);
+};
+
 module.exports = {
     route,
     gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
     creatAtivoController,
+    updateAtivosInfosController,
 };

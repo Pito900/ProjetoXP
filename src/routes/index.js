@@ -7,7 +7,7 @@ const { validateToken } = require('../middlewares/authValidation');
 const { bodyCompraEVendaValidation, 
     clienteValidation } = require('../middlewares/bodyCompraEVendaMiddleware');
 const { bodyLoginValidation } = require('../middlewares/bodyLoginValidation');
-const { verAtivosDoClienteValidation } = require('../middlewares/ativosCodClienteMiddleware');
+const { acesssoClienteValidation } = require('../middlewares/ativosCodClienteMiddleware');
 const { bodyDepositoEVendaValidation,
     saqueMenorQueSaldo } = require('../middlewares/BodyDepositoESaqueMiddleware');
 const { bodyNewClienteValidation,
@@ -91,21 +91,28 @@ const {
     gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
     creatAtivoController,
+    updateAtivosInfosController,
  } = require('../controllers/ativosController');
 
 router.get('/assets/ativos/:codAtivo',
 validateToken,
-verAtivosDoClienteValidation,
+acesssoClienteValidation,
 gettingAtivoByCodAtivoController);
 
 router.get('/assets',
 validateToken,
+acesssoClienteValidation,
 listarTodasOsAtivosController);
 
 router.post('/assets/newAtivo',
 validateToken,
-verAtivosDoClienteValidation,
+acesssoClienteValidation,
 creatAtivoController);
+
+router.put('/assets/ativos/update',
+validateToken,
+acesssoClienteValidation,
+updateAtivosInfosController);
 
 ///
 
@@ -123,6 +130,7 @@ createDepositoController);
 
 router.get('/conta/logDepositos',
 validateToken,
+acesssoClienteValidation,
 getAllDepositosController);
 
 ///
@@ -153,7 +161,7 @@ const { countClientInfosController } = require('../controllers/clienteController
 
 router.get('/conta/:codCliente',
 validateToken,
-verAtivosDoClienteValidation,
+acesssoClienteValidation,
 countClientInfosController);
 
 module.exports = router; 

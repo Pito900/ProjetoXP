@@ -74,6 +74,7 @@ Fiz o docker da minha aplicação pensando em receber PRs e para que possam aval
 <br />
 
 # Tecnologias
+<p align="center">
 <img align="center" alt="Js" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" />
   <img align="center" alt="Js" height="30" width="40" src="./public/swagger1.png">
   <img align="center" alt="docker" height="30" width="40"
@@ -83,6 +84,7 @@ Fiz o docker da minha aplicação pensando em receber PRs e para que possam aval
   <img align="center" alt="linux" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg">
   <img align="center" alt="Js" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mocha/mocha-plain.svg" />
     </div>
+  </p>
 <br />
 
 # Endpoints
@@ -142,6 +144,9 @@ Irei me concentrar, nesse momento, em mostrar como a API está bem "integrada" c
 <br />
 
 # Sobre algumas tomadas de decisões
+
+
+Utilizei a variável de ambiente `NODE_ENV`(localizada no .env) para mudar o ambiente. Ao desmarcar essa variável tudo será rodado na produção.
 
 Ao resalizar o login com algun usuário, diferente do admin, algunas rotas estarão indisponíveis. O admin, não pode acessar a rota de depósitos/saques dos clientes. Um cliente não conseguirá acessar uma rota que tenha informações dos outros clientes. 
 

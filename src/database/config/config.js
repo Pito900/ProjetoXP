@@ -9,7 +9,10 @@ module.exports = {
     "port": process.env.MYSQL_PORT || '3306',
     "dialect": "mysql",
     "dialectOptions": {
-      timezone: 'Z',
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
     },    
   },
   "test": {
@@ -26,13 +29,6 @@ module.exports = {
     "host": process.env.HOST_POSTGRES,
     "port": process.env.DB_PORT_POSTGRES,
     "dialect": "postgres",
-    "dialectOptions": {
-      timezone: 'Z',
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    },
   }
 }
 

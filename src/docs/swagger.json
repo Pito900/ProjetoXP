@@ -15,10 +15,11 @@
       "description": "Api de teste"
     },
     {
-        "url":"link2",
-        "description": "Api de produção"
-      }
+      "url":"https://projetoxp.herokuapp.com/",
+      "description": "Api de produção"
+    }
   ],
+  "schemes": ["http", "https"],
   "paths": {
     "/login": {
       "post": {

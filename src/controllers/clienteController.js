@@ -6,15 +6,11 @@ const {
     createClient,
     updateClienteEmail,
     updateClienteImageEName,
+    deleteConta,
  } = require('../services/clienteService');
 const { generateToken } = require('../utils/JWT');
 
 const route = express.Router();
-
-// const getAllClienteController = async (_req, res) => {
-//     const allClients = await getAllclients();
-//     return res.status(200).json(allClients);
-// };
 
 const getClienteByCodClienteController = async (req, res) => {
     const { codCliente } = req.params;
@@ -44,6 +40,12 @@ const updateClienteEmailInfosController = async (req, res) => {
     return res.status(200).json({ message: 'Atualizado! Você precisa relogar.' });
 };
 
+const deleteContaController = async (req, res) => {
+    const { codCliente } = req.params;
+    const result = await deleteConta(codCliente, res);
+    return res.status(204).json(result);
+};
+
 module.exports = {
     route,
     // getAllClienteController,
@@ -52,4 +54,5 @@ module.exports = {
     createClientController,
     updateClienteInfosController,
     updateClienteEmailInfosController,
+    deleteContaController,
 };

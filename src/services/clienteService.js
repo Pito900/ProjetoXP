@@ -98,9 +98,10 @@ const listarTodasOsAtivos = async () => {
         codCliente: carteira.codCliente,
         ativos: carteira.ativos,
     }));
+    const  [ , ...clientesCarteira ] = carteiras // para retirar a carteira da conta adm da lista final
     const ListaAtivos = {
         Corretora: allAtivos,
-        Carteiras: carteiras,
+        Carteiras: clientesCarteira,
     };
     return ListaAtivos;
 };
@@ -154,6 +155,7 @@ const countClientInfos = async (codCliente) => {
 };
 
 const createClient = async (reqBody, res) => {
+    const { name, email, image, valor } = reqBody;
     const oldCliente = await clientAlreadyReg(reqBody);
     if (oldCliente) {
         return res.status(409).json({ message: 'Esse cliente  já está cadastrado.' });
@@ -185,6 +187,18 @@ const updateClienteImageEName = async (reqBody) => {
         { where: { codCliente } },
         );
 }
+
+const deleteConta = async (codCliente, res) => {
+  const countData =  await  getClienteByCod(codCliente);
+  const { saldo, ativos } = countData
+  if ( saldo === 0 && ativos === []) {
+    await Cliente.destroy(
+      { where: { codCliente } },
+      );
+      return res.status(204).json({ message: 'Conta excluida.' });
+  }
+  return res.status(422).json({ message: 'É preciso limpar a conta para poder deleta-la.' })
+}
 module.exports = {
     clientAlreadyReg,
     arraydeAtivos,
@@ -200,4 +214,5 @@ module.exports = {
     createClient,
     updateClienteEmail,
     updateClienteImageEName,
+    deleteConta,
 };

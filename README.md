@@ -135,7 +135,22 @@ Irei me concentrar, nesse momento, em mostrar como a API está bem "integrada" c
 -  Ao sacar uma quantidade, da sua conta, o seu saldo é decrescido neste momtante. 
 <br />
 
-# Avisos
-Tive alguns problemas em fazer testes unitários com o `sequelize`. Precisei mockar toda a base de dados e criar umas psceudos funções que simulam o comportamento do sequelize (`o comportamento da camada de model`). Esses Mocks estão na pasta test/mocks/models. Isso afetou minha capacidade em fazer testes unitários. 
+6 - GET /assets:
+<br />
+-  Esse endpoint disponibiliza todas as ações (`corretora + carteiras`). A primeira KEY desse objeto é um outro array que contem todos os ativos da corretora. A segunda KEY é um array cujo cada elemento é um objeto que contem o codCliente e os ativos deste cliente.
+-  Optei por colocar o codCliente para especificar de que carteira estamos falando.
+<br />
 
-Para não deixar a aplicação sem muitos testes optei por fazer alguns `testes de integrações`. Assim busquei complementar essa fragilidade do meu projeto.
+# Sobre algumas tomadas de decisões
+
+Ao resalizar o login com algun usuário, diferente do admin, algunas rotas estarão indisponíveis. O admin, não pode acessar a rota de depósitos/saques dos clientes. Um cliente não conseguirá acessar uma rota que tenha informações dos outros clientes. 
+
+Ao realizar a troca de email (`atravéz da rota de update do email`) vc deve relogar para que um novo token seja criado. 
+
+Escolhi utilizar o `sequelize` neste projeto, pois, é um ORM muito conhecido para o `Node.js`. Ele possui suporte aos bancos de dados como: MariaDB, PostgreSQL, SQLite, MySQL, SQLite e MSSQL. Como ORM ele faz o mapeamento de dados relacionais (tabelas, colunas e linhas) para objetos Javascript. Por essa versatilidade eu tenho um amplo leque de escolhas de base de dados, podendo diferenciar a base de produção e de desenvolvimento (`como eu fiz nesse projeto.`).
+
+Fiz o `docker` do meu `projeto` e da minha `base de dados` para não haver nenhuma preocupação da usabilidade deste projeto em outros ambientes de desenvolvimentos com configurações diferentes da minha. 
+
+Tive alguns problemas em fazer testes unitários com o `sequelize`. Precisei mockar toda a base de dados e criar umas psceudos funções que simulam o comportamento do sequelize (`o comportamento da camada de model`). Esses Mocks estão na pasta test/mocks/models. Isso afetou minha capacidade em fazer testes unitários. Para não deixar a aplicação sem muitos testes optei por fazer alguns `testes de integrações`, buscando complementar os testes unitários. A aplicação ainda precisa de mais testes.
+
+

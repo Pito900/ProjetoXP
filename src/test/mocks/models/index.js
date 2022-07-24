@@ -1,11 +1,23 @@
-const ativoMockData = require('./ativos.mock.json');
 const clienteMockData = require('./clientes.mock.json')
 const vendaMockData = require('./vendas.mock.json')
+const ativoMockData = require('./ativos.mock.json');
 const compraMockData = require('./compras.mock.json')
 const depositoMockData = require('./depositos.mock.json')
-const saqueMockData = require('./saques.mock.json')
+const saqueMockData = require('./saques.mock.json');
+const { createClient } = require('../../../services/clienteService');
 
+const mockFindOne = (Instance, where) => {
+  if (!where) {
+        return Instance[0];
+  }
+  const whereFields = Object.keys(where);
+  const result = Instance.filter(item => {
+    const onlyMatch = whereFields.map( key => item[key] === where[key]);
+    return onlyMatch.filter(v=>v).length === whereFields.length;
+  });
 
+  return result[0];
+}
 
 const mockFindIDByAtivo = (Instance, id) => {
   const result = Instance.filter(item => item.codAtivo === id);
@@ -33,6 +45,18 @@ const mockCreate = (Instance, data) => {
     return newData;
 };
 
+const mockCreateAtivo = (Instance, data) => {
+  if (!data) {
+    return;
+  }
+  const newData = data;
+  if (Instance[0].codAtivo) {
+    newData.codAtivo = Date.now();
+  }
+  Instance.push(newData);
+  return newData;
+};
+
 const mockCreateCliente = (Instance, data) => {
   if (!data) {
     return;
@@ -46,15 +70,18 @@ const mockCreateCliente = (Instance, data) => {
 };
 
 const AtivoMock = {
-    create: async (data) => mockCreate(ativoMockData, data),
-    findAll: async () => ativoMockData,
-    findByPk: async (codAtivo) => mockFindIDByAtivo(ativoMockData, codAtivo),
+  findAll: async () => ativoMockData,
+  create: async (data) => mockCreateAtivo(ativoMockData, data),
+  findByPk: async (codAtivo) => mockFindIDByAtivo(ativoMockData, codAtivo),
+  findOne: async ({ where }) => mockFindOne(ativoMockData, where),
 };
 
 const ClienteMock = {
+  findOne: async ({ where }) => mockFindOne(clienteMockData, where),
   create: async (data) => mockCreateCliente(clienteMockData, data),
   findAll: async () => clienteMockData,
   findByPk: async (codCliente) => mockFindIDByCliente(clienteMockData, codCliente),
+  update: async (codCliente, valor) => createClientMock(clienteMockData, codCliente, valor),
 };
 
 const VendaMock = {

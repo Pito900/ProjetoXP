@@ -13,6 +13,7 @@ const { bodyDepositoEVendaValidation,
 const { bodyNewClienteValidation,
     emailValidation,
  } = require('../middlewares/bodyNewClienteMiddleware');
+ const { createAtivoValidation } = require('../middlewares/ativoCreateMiddleware');
 
 ///
 
@@ -64,16 +65,11 @@ getAllVendasController);
 
 router.use('/clientes/ativos', require('../controllers/clienteController').route);
 const { 
-// getAllClienteController,
 getClienteByCodClienteController,
 createClientController,
 updateClienteInfosController,
 updateClienteEmailInfosController,
 } = require('../controllers/clienteController');
-
-// router.get('/clientes/ativos',
-// validateToken,
-// getAllClienteController);
 
 router.get('/clientes/ativos/:codCliente',
 validateToken,
@@ -119,6 +115,7 @@ listarTodasOsAtivosController);
 router.post('/assets/newAtivo',
 validateToken,
 acesssoClienteValidation,
+createAtivoValidation,
 creatAtivoController);
 
 router.put('/assets/ativos/update',
@@ -169,11 +166,18 @@ getAllSaquesController);
 // Rota para informações da conta
 
 router.use('/clientes/ativos', require('../controllers/clienteController').route);
-const { countClientInfosController } = require('../controllers/clienteController');
+const { countClientInfosController, 
+    deleteContaController } = require('../controllers/clienteController');
 
 router.get('/conta/:codCliente',
 validateToken,
 acesssoClienteValidation,
 countClientInfosController);
+
+router.delete('/conta/delete/:codCliente',
+validateToken,
+clienteValidation,
+acesssoClienteValidation,
+deleteContaController);
 
 module.exports = router; 

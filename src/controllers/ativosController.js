@@ -1,7 +1,9 @@
 const express = require('express');
 const { listarTodasOsAtivos } = require('../services/clienteService');
 const {
+    ativoAlreadyReg,
     gettingAtivoByCodAtivo,
+    createAtivo,
  } = require('../services/ativoService');
 
 const route = express.Router();
@@ -20,8 +22,18 @@ const listarTodasOsAtivosController = async (_req, res) => {
     return res.status(200).json(allAtivos);
 };
 
+const creatAtivoController = async (req, res) => {
+    const ativoAlreadyExist = await ativoAlreadyReg(req.body);
+    if (ativoAlreadyExist) {
+        return res.status(409).json({ message: 'Este ativo já está cadastrado.' });
+    }
+    const newAtivo = await createAtivo(req.body);
+    return res.status(201).json(newAtivo);
+};
+
 module.exports = {
     route,
     gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
+    creatAtivoController,
 };

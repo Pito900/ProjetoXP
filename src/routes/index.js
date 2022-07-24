@@ -90,15 +90,22 @@ router.use('/assets/ativos', require('../controllers/ativosController').route);
 const {
     gettingAtivoByCodAtivoController,
     listarTodasOsAtivosController,
+    creatAtivoController,
  } = require('../controllers/ativosController');
 
 router.get('/assets/ativos/:codAtivo',
 validateToken,
+verAtivosDoClienteValidation,
 gettingAtivoByCodAtivoController);
 
 router.get('/assets',
 validateToken,
 listarTodasOsAtivosController);
+
+router.post('/assets/newAtivo',
+validateToken,
+verAtivosDoClienteValidation,
+creatAtivoController);
 
 ///
 

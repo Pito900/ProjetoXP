@@ -1,5 +1,7 @@
 const { Ativo } = require('../database/models');
 
+const ativoAlreadyReg = (reqBody) => Ativo.findOne({ where: { ticker: reqBody.ticker } });
+
 const gettingAtivoByCodAtivo = async (codAt) => {
     const ativo = await Ativo.findByPk(codAt);
     if (!ativo) {
@@ -25,7 +27,18 @@ const updateQtdDisponivel = async (qtd, codAtivo, vendOrComp) => {
     }
 };
 
+const createAtivo = async (reqBody) => {
+    const newAtivo = Ativo.create({
+        ticker: reqBody.ticker,
+        qtdDisponivel: reqBody.qtdDisponivel,
+        valor: reqBody.valor,
+    });
+    return newAtivo;
+};
+
 module.exports = {
+    ativoAlreadyReg,
     gettingAtivoByCodAtivo,
     updateQtdDisponivel,
+    createAtivo,
 };

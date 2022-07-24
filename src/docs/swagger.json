@@ -257,6 +257,118 @@
         }
       }
     },
+    "/conta/update/email": {
+      "put": {
+        "summary": "Atualiza algum o email.",
+        "description": "Essa rota é para atualizar o email do cliente.",
+        "tags": ["Atualiza o email"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateEmailBody"
+              },
+              "examples": {
+              "newCliente": {
+                "value": {
+                  "codCliente": 3,
+                  "email": "franciscoMonteiro@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "422": {
+            "description": "Unprocessable Entity."
+          },
+          "409": {
+            "description": "Conflict."
+          },
+          "201": {
+          "description": "updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties":{
+                      "message": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conta/update": {
+      "put": {
+        "summary": "Atualiza o nome e foto.",
+        "description": "Essa rota é para atualizar o nome e a foto de algum cliente.",
+        "tags": ["Atualiza o name e a foto"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateInfosClienteBody"
+              },
+              "examples": {
+              "newCliente": {
+                "value": {
+                  "codCliente": 3,
+                  "email": "franciscoMonteiro@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "422": {
+            "description": "Unprocessable Entity."
+          },
+          "409": {
+            "description": "Conflict."
+          },
+          "201": {
+          "description": "updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "itens": {
+                    "type": "object",
+                    "properties":{
+                      "message": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/investimentos/vender": {
       "post": {
         "summary": "Venda de Ativos.",
@@ -907,6 +1019,31 @@
           },
           "saldo": {
             "type": "decimal"
+          }
+        }
+      },
+      "updateClienteBody": {
+        "type": "object",
+        "properties": {
+          "codCliente": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "updateInfosClienteBody": {
+        "type": "object",
+        "properties": {
+          "codCliente": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
           }
         }
       },

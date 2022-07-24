@@ -7,7 +7,7 @@ const { validateToken } = require('../middlewares/authValidation');
 const { bodyCompraEVendaValidation, 
     clienteValidation } = require('../middlewares/bodyCompraEVendaMiddleware');
 const { bodyLoginValidation } = require('../middlewares/bodyLoginValidation');
-const { acesssoClienteValidation } = require('../middlewares/ativosCodClienteMiddleware');
+const { acesssoClienteValidation } = require('../middlewares/acessoCodClienteMiddleware');
 const { bodyDepositoEVendaValidation,
     saqueMenorQueSaldo } = require('../middlewares/BodyDepositoESaqueMiddleware');
 const { bodyNewClienteValidation,
@@ -67,6 +67,8 @@ const {
 // getAllClienteController,
 getClienteByCodClienteController,
 createClientController,
+updateClienteInfosController,
+updateClienteEmailInfosController,
 } = require('../controllers/clienteController');
 
 // router.get('/clientes/ativos',
@@ -81,6 +83,16 @@ router.post('/newCliente',
 bodyNewClienteValidation,
 emailValidation,
 createClientController);
+
+router.put('/conta/update',
+validateToken,
+clienteValidation,
+updateClienteInfosController);
+
+router.put('/conta/update/email',
+validateToken,
+clienteValidation,
+updateClienteEmailInfosController);
 
 ///
 

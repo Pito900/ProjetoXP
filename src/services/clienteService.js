@@ -153,7 +153,11 @@ const countClientInfos = async (codCliente) => {
     return result;
 };
 
-const createClient = (reqBody) => {
+const createClient = async (reqBody, res) => {
+    const oldCliente = await clientAlreadyReg(reqBody);
+    if (oldCliente) {
+        return res.status(409).json({ message: 'Esse cliente  já está cadastrado.' });
+    }
     const newCliente = Cliente.create({
         name: reqBody.name,
         email: reqBody.email,
@@ -163,6 +167,24 @@ const createClient = (reqBody) => {
     return newCliente;
 };
 
+const updateClienteEmail = async (reqBody, res) => {
+    const oldCliente = await clientAlreadyReg(reqBody)
+    if (oldCliente) {
+        return res.status(409).json({ message: 'Esse cliente  já está cadastrado.' });
+    }
+    await Cliente.update(
+        { email: reqBody.email },
+        { where: { codCliente: reqBody.codCliente } },
+        );
+}
+
+const updateClienteImageEName = async (reqBody) => {
+    const { codCliente, name, image } = reqBody
+    await Cliente.update(
+        { name, image },
+        { where: { codCliente } },
+        );
+}
 module.exports = {
     clientAlreadyReg,
     arraydeAtivos,
@@ -176,4 +198,6 @@ module.exports = {
     updateSaldoDepositoOuSaque,
     countClientInfos,
     createClient,
+    updateClienteEmail,
+    updateClienteImageEName,
 };

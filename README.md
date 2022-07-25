@@ -92,9 +92,8 @@ Irei me concentrar, nesse momento, em mostrar como a API está bem "integrada" c
 
 **:warning:** Teste os demais endpoints no [Swagger](https://projetoxp.herokuapp.com/apiDocs/). Aqui só falei de alguns.
 </details>
+<br />
 
-<br />
-<br />
 1 - POST /login:
 <br />
 -  É nesse momento que o cliente cadastrado entra em sua conta e gera um token que o permite acessar algunss endPoints específicos.
